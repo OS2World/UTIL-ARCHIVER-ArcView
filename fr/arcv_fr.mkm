@@ -1,0 +1,165 @@
+; Message file for Archive Viewer
+; French version
+; Translator.: Guillaume Gay <guillaume.gay@bigfoot.com>
+; Version....: 2008-04-25
+ARV
+; Common strings used throughout program
+ARV0001I: Archive Viewer
+ARV0002I: ~OK
+ARV0003I: ~Annuler
+ARV0004I: Aide
+ARV0005I: C~ontinuer
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~Fichier
+ARV0011I: ~Ouvrir...    Ctrl+O
+ARV0012I: ~Extraire...  Ctrl+E
+ARV0013I: Fe~rmer
+ARV0014I: ~Quitter  F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: ~Options
+ARV0021I: ~Police...
+ARV0022I: ...~principale
+ARV0023I: ...d'ê~tat
+ARV0024?:
+ARV0025I: ~Reformater le texte
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Aide
+ARV0031I: I~ntroduction
+ARV0032I: ~Utilisation de Archive Viewer
+ARV0033I: ~Index de l'aide
+ARV0034I: Info. ~produit
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Remarque
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Extraire vers...
+ARV0051I: Chemin de destination :
+ARV0052I: Ajouter le nom du fichier d'archive au chemin
+ARV0053I: Ouverture du dossier apräs extraction
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Mot de passe requis
+ARV0061I: Un mot de passe est requis pour extraire le contenu de cette archive.
+ARV0062I: Un mot de passe est requis pour afficher le contenu de cette archive.
+ARV0063I: Entrez le mote de passe :
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: SÇlection de la police
+ARV0068?:
+ARV0069?:
+ARV0070I: Informations sur le produit
+ARV0071I: Archive Viewer
+ARV0072I: Version %1
+ARV0073I: (const. %1)
+ARV0074I: (C) 2004-2011 Alex Taylor. Tous droits rÇservÇs.
+ARV0075I: LicenciÇ selon les termes de la licence publique gÇnÇrale GNU. Appuyez sur F1 pour plus de dÇtails.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: Aucun fichier n'est actuellement ouvert
+ARV0101I: SÇlection du fichier
+ARV0102I: lecture du fichier...
+ARV0103I: extraction du du fichier...
+ARV0104I: TerminÇ.
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: Un probläme est survenu Ö la tentative de lecture du contenu de l'archive :
+ARV0111I: Un probläme est survenu Ö la tentative de lecture d'extraction de l'archive :
+ARV0112I: Le descripteur de type de fichier appropriÇ
+ARV0113I: ou
+ARV0114I: Erreur inconnue.
+ARV0115I: DÇtermination du type de fichier impossible.
+ARV0116I: L'entàte de l'archive est chiffrÇ; le dÇchiffrage de l'entàte pour cette archive n'a pas encore ÇtÇ implÇmentÇ.
+ARV0117I: %1 introuvable sur votre systäme.
+ARV0118I: Le support pour ce type d'archive n'a pas encore ÇtÇ implÇmentÇ.
+ARV0119I: êtablissement du rÇpertoire de destination impossible.
+ARV0120I: est une archive ZIP
+ARV0121I: est une archive multi-volume ZIP
+ARV0122I: est une archive RAR
+ARV0123I: est une archive multi-volume RAR
+ARV0124I: est une archive ARJ
+ARV0125I: est une archive de bande Unix
+ARV0126I: est une archive de bande Unix compressÇe GZIP
+ARV0127I: est une archive de bande Unix compressÇe BZIP2
+ARV0128I: est une archive de bande Unix compressÇe
+ARV0129I: est une archive WarpIn
+ARV0130I: est une archive LZH
+ARV0131I: est une archive PACK [%1]
+ARV0132I: est une archive RPM
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: Un fichier nommÇ %1 existe dÇjÖ.
+ARV0141I: Fichier existant
+ARV0142I: Cette action Çcrasera tout fichier prÇsent dans %1 existant aussi dans %2.
+ARV0143I: Avertissement
+ARV0144I: Probläme
+ARV0145I: Erreur
+ARV0146I: ne peut pas lancer l'unitÇ d'exÇcution (thread).
+ARV0147I: Ouverture du dossier impossible.
+ARV0148I: Fichier d'aide manquant.

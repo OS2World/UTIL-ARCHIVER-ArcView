@@ -1,0 +1,15 @@
+VX-REXX OS/2 V2.14 Build B3
+VRX: ArcView.VRX
+VRX: OpenFile.VRX
+VRX: Extract.VRX
+MacroPath: VRM:E:\Development\VXREXX\Projects
+EXEPath: 
+RunParameters: 
+RunDirectory: 
+VRXWindow: __VREMainWindow,1,1168,434,7874,11262
+VRXWindow: __VREFileListWindow,1,5649,11515,2665,3770
+VRXWindow: __VRESectionListWindow,1,2132,11515,3457,3758
+VRXWindow: __VREToolsWindow,1,2108,9202,4960,1660
+VRXWindow: __VREWindListWindow,1,8347,11515,3324,3782
+UserFile: 1
+UserWindow: WN_MAIN,1

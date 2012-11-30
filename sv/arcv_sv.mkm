@@ -1,0 +1,163 @@
+; Message file for Archive Viewer
+; Swedish version
+ARV
+; Common strings used throughout program
+ARV0001I: Arkivvisare
+ARV0002I: ~OK
+ARV0003I: A~vbryt
+ARV0004I: ~Hj„lp
+ARV0005I: ~Forts„tt
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~Arkiv
+ARV0011I: ~™ppna       Ctrl+O
+ARV0012I: ~Extrahera   Ctrl+E
+ARV0013I: ~St„ng
+ARV0014I: Avsluta F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: A~lternativ
+ARV0021I: ~Font...
+ARV0022I: H~uvud
+ARV0023I: ~Status
+ARV0024?:
+ARV0025I: ~Radbryt text
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Hj„lp
+ARV0031I: Introduktion
+ARV0032I: ~Anv„nda Arkivvisaren
+ARV0033I: Hj„lp ~inneh†ll
+ARV0034I: ~Produktinformation
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Kommentar
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Extrahera till...
+ARV0051I: Ange s”kv„g att extrahera till:
+ARV0052I: L„gg arkivnamn till vald s”kv„g
+ARV0053I: ™ppna mapp efter extrahering
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: L”senord kr„vs
+ARV0061I: Ett l”senord kr„vs f”r att extrahera inneh†llet i detta arkiv.
+ARV0062I: Ett l”senord kr„vs f”r att visa inneh†llet i detta arkiv.
+ARV0063I: Ange l”senord:
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: V„lj font
+ARV0068?:
+ARV0069?:
+ARV0070I: Produktinformation
+ARV0071I: Arkivvisare
+ARV0072I: Version %1
+ARV0073I: (build %1)
+ARV0074I: (C) 2004-2011 Alexander Taylor. Alla r„ttigheter reserverade
+ARV0075I: Licensierad under villkoren hos GNU General Public License. Tryck F1 f”r detaljer.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: Ingen fil „r ”ppen f”r n„rvarande
+ARV0101I: V„lj fil
+ARV0102I: l„ser fil...
+ARV0103I: extraherar fil...
+ARV0104I: Klart.
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: Ett problem uppstod vid f”rs”k att l„sa arkivets inneh†ll:
+ARV0111I: Ett problem uppstod vid f”rs”k att extrahera arkivet:
+ARV0112I: Passande fil-typs handtag
+ARV0113I: eller
+ARV0114I: Ok„nt fel.
+ARV0115I: Kunde inte best„mma arkivtyp.
+ARV0116I: Arkivheadern „r krypterad; headerdekryptering f”r denna arkivtyp har inte implementerats „nnu.
+ARV0117I: %1 kunde inte hittas p† ditt system.
+ARV0118I: St”d f”r denna arkivtyp har inte implementerats „nnu.
+ARV0119I: Kunde inte st„lla in m†lkatalog.
+ARV0120I: „r ett ZIP arkiv
+ARV0121I: „r ett multi-volyms ZIP arkiv
+ARV0122I: „r ett RAR arkiv
+ARV0123I: „r ett multi-volyms RAR arkiv
+ARV0124I: „r ett ARJ arkiv
+ARV0125I: „r ett Unix tape arkiv
+ARV0126I: „r ett GZIP-komprimerat Unix tape arkiv
+ARV0127I: „r ett BZIP2-komprimerat Unix tape arkiv
+ARV0128I: „r ett komprimerat Unix tape arkiv
+ARV0129I: „r ett WarpIn arkiv
+ARV0130I: „r ett LZH arkiv
+ARV0131I: „r ett PACK [%1] arkiv
+ARV0132?:
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: En fil med namnet %1 existerar redan.
+ARV0141I: Filen existerar
+ARV0142I: Den h„r aktionen kommer att skriva ”ver n†gra existerande filer under %1 vilka ocks† existerar i %2.
+ARV0143I: Varning
+ARV0144I: Problem
+ARV0145I: Fel
+ARV0146I: kunde inte starta tr†d.
+ARV0147I: Kunde inte ”ppna mappvisning.
+ARV0148I: Saknad hj„lpfil

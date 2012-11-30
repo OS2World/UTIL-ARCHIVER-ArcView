@@ -1,0 +1,164 @@
+; Message file for Archive Viewer
+; Russian version
+ARV
+; Common strings used throughout program
+ARV0001I: Просмотр архивов
+ARV0002I: OK
+ARV0003I: ~Отмена
+ARV0004I: ~Справка
+ARV0005I: П~родолжить
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~Файл
+ARV0011I: ~Открыть...   Ctrl+О
+ARV0012I: ~Распаковать...   Ctrl+Р
+ARV0013I: ~Закрыть
+ARV0014I: В~ыход    F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: ~Режимы
+ARV0021I: ~Шрифт
+ARV0022I: ~Основные...
+ARV0023I: ~Состояние...
+ARV0024?:
+ARV0025I: ~Перенос строк
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Справка
+ARV0031I: Обзор
+ARV0032I: ~Использование просмотра архивов
+ARV0033I: ~Оглавление справки
+ARV0034I: Информация о ~продукте
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Комментарий
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Распаковать в...
+ARV0051I: Укажите, в какой каталог распаковать:
+ARV0052I: Добавить имя архива к выбранному каталогу
+ARV0053I: Открыть папку после извлечения
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Нужен пароль
+ARV0061I: Для извлечения содержимого этого архива нужен пароль.
+ARV0062I: Для просмотра содержимого этого архива нужен пароль.
+ARV0063I: Введите пароль:
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: Выберите шрифт
+ARV0068?:
+ARV0069?:
+ARV0070I: Информация о продукте
+ARV0071I: Просмотр архивов
+ARV0072I: Версия %1
+ARV0073I: (сборка %1)
+ARV0074I: (C) 2009 Alex Taylor. Все права защищены.
+; *** TRANSLATION REQUIRED:
+ARV0075I: Licensed under the terms of the GNU General Public License.  Press F1 for details.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}О
+; File->Extract
+ARV0081I: {Ctrl}Р
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: Ни один файл не открыт
+ARV0101I: Выберите файл
+ARV0102I: Чтение файла...
+ARV0103I: Распаковка...
+ARV0104I: Готово
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: Проблема при попытке прочитать содержимое архива:
+ARV0111I: Проблема при попытке распаковать архив:
+ARV0112I: Обработчик этого типа файлов
+ARV0113I: или
+ARV0114I: Неизвестная ошибка.
+ARV0115I: Не удалось определить тип архива.
+ARV0116I: Заголовок архива зашифрован. Расшифровка заголовка этого типа архивов пока не реализована.
+ARV0117I: Не удалось найти %1.
+ARV0118I: Поддержка этого типа архивов пока не реализована.
+ARV0119I: Невозможно перейти в выбранный каталог.
+ARV0120I: - архив ZIP
+ARV0121I: - многотомный архив ZIP
+ARV0122I: - архив RAR
+ARV0123I: - многотомный архив RAR
+ARV0124I: - архив ARJ
+ARV0125I: - ленточный архив Unix
+ARV0126I: - ленточный архив Unix, сжатый GZIP
+ARV0127I: - ленточный архив Unix, сжатый BZIP2
+ARV0128I: - ленточный архив Unix, сжатый COMPRESS
+ARV0129I: - архив WarpIn
+ARV0130I: - архив LZH
+ARV0131I: - архив PACK [%1]
+ARV0132I: - архив RPM
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: Файл с именем %1 уже существует.
+ARV0141I: Файл существует
+ARV0142I: Эта операция перезапишет в %1 все файлы, которые существуют в %2.
+ARV0143I: Предупреждение
+ARV0144I: Проблема
+ARV0145I: Ошибка
+ARV0146I: Не удалось запустить поток.
+ARV0147I: Невозможно открыть папку.
+ARV0148I: Отсутствует файл справки

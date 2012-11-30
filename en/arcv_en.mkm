@@ -1,0 +1,169 @@
+; Message file for Archive Viewer
+; English version
+ARV
+; Common strings used throughout program
+ARV0001I: Archive Viewer
+ARV0002I: ~OK
+ARV0003I: ~Cancel
+ARV0004I: ~Help
+ARV0005I: C~ontinue
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~File
+ARV0011I: ~Open...	Ctrl+O
+ARV0012I: ~Extract...	Ctrl+E
+ARV0013I: ~Close
+ARV0014I: E~xit	F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: ~View
+ARV0021I: ~Font
+ARV0022I: ~Main...
+ARV0023I: ~Status...
+ARV0024?:
+ARV0025I: ~Wrap text
+ARV0026I: F~ind...
+ARV0027I: Find ~again
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Help
+ARV0031I: Introduction
+ARV0032I: ~Using Archive Viewer
+ARV0033I: Help ~contents
+ARV0034I: ~Product information
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Comment
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Extract To...
+ARV0051I: Choose a path to extract to:
+ARV0052I: Append archive name to selected path
+ARV0053I: Open folder after extraction
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Password Required
+ARV0061I: A password is required to extract the contents of this archive.
+ARV0062I: A password is required to view the contents of this archive.
+ARV0063I: Enter password:
+ARV0064I: An incorrect password was specified.  Please try again.
+ARV0065?:
+ARV0066?:
+ARV0067I: Select Font
+ARV0068?:
+ARV0069?:
+ARV0070I: Product Information
+ARV0071I: Archive Viewer
+ARV0072I: Version %1
+ARV0073I: (build %1)
+ARV0074I: (C) 2004-2011 Alex Taylor.
+ARV0075I: Licensed under the terms of the GNU General Public License.  Press F1 for details.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: No file is currently open
+ARV0101I: Select File
+; - these two are for the titlebar
+ARV0102I: reading file...
+ARV0103I: extracting file...
+; - and these next three are for the status bar
+ARV0104I: Done.
+ARV0105I: Reading file ...
+ARV0106I: Extracting file ...
+; Misc. other text
+ARV0107I: is a single file compressed using '%1'
+ARV0108I: (compressed size %1 bytes)
+ARV0109?:
+ARV0110I: A problem was encountered when trying to read the archive contents:
+ARV0111I: A problem was encountered when trying to extract the archive:
+ARV0112I: The appropriate file-type handler
+ARV0113I: or
+ARV0114I: Unknown error.
+ARV0115I: Could not determine the archive type.
+ARV0116I: The archive header is encrypted; header decryption for this archive type has not yet been implemented.
+ARV0117I: %1 could not be found on your system.
+ARV0118I: Support for this archive type has not yet been implemented.
+ARV0119I: Unable to set the target directory.
+; File type displays for the status bar
+ARV0120I: is a ZIP archive
+ARV0121I: is a multi-volume ZIP archive
+ARV0122I: is a RAR archive
+ARV0123I: is a multi-volume RAR archive
+ARV0124I: is an ARJ archive
+ARV0125I: is a Unix tape archive
+ARV0126I: is a gzip-compressed Unix tape archive
+ARV0127I: is a bzip2-compressed Unix tape archive
+ARV0128I: is a compressed Unix tape archive
+ARV0129I: is a WarpIN archive
+ARV0130I: is an LZH archive
+ARV0131I: is a PACK [%1] archive
+ARV0132I: is an RPM package
+ARV0133I: is an lzip-compressed Unix tape archive
+ARV0134I: is a 7Z archive
+ARV0135?:
+ARV0136I: is a MemDisk compressed disk image
+ARV0137?:
+ARV0138?:
+ARV0139?:
+; Error/warning messages
+ARV0140I: A file named %1 already exists.
+ARV0141I: File Exists
+ARV0142I: This action will overwrite any existing files under %1 which also exist in %2.
+ARV0143I: Warning
+ARV0144I: Problem
+ARV0145I: Error
+ARV0146I: could not start thread.
+ARV0147I: Unable to open folder view.
+ARV0148I: Missing help file
+

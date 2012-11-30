@@ -1,0 +1,164 @@
+; Message file for Archive Viewer
+; Dutch version
+ARV
+; Common strings used throughout program
+ARV0001I: Archief Bekijker
+ARV0002I: ~OK
+ARV0003I: ~Annuleren
+ARV0004I: ~Help
+ARV0005I: D~oorgaan
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~Bestand
+ARV0011I: ~Open...  Ctrl+O
+ARV0012I: ~Uitpakken archief... Ctrl+E
+ARV0013I: ~Sluiten
+ARV0014I: E~inde    F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: ~Opties
+ARV0021I: ~Lettertype
+ARV0022I: ~Hoofd...
+ARV0023I: ~Status...
+ARV0024?:
+ARV0025I: ~Tekst omloop
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Help
+ARV0031I: Overzicht
+ARV0032I: ~Gebruik Archief Bekijker
+ARV0033I: Help ~inhoud
+ARV0034I: ~Produkt informatie
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Commentaar
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Uitpakken in...
+ARV0051I: Kies een pad om in uit te pakken:
+ARV0052I: Voeg archiefnaam toe aan het geselecteerde pad
+ARV0053I: Open map na het uitpakken
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Wachtwoord nodig
+ARV0061I: Er is een wachtwoord nodig om de inhoud van dit archief uit te pakken.
+ARV0062I: Er is een wachtwoord nodig om de inhoud van dit archief te bekijken.
+ARV0063I: Voer wachtwoord in:
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: Selecteer lettertype
+ARV0068?:
+ARV0069?:
+ARV0070I: Produkt informatie
+ARV0071I: Archief Bekijker
+ARV0072I: Versie %1
+ARV0073I: (build %1)
+ARV0074I: (C) 2004-2011 Alex Taylor.
+ARV0075I: Gelicentieerd onder de definitie van de  GNU General Public License.  Druk op F1 voor details.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: Er is momenteel geen bestand geopend
+ARV0101I: Selecteer bestand
+ARV0102I: bestand aan het lezen...
+ARV0103I: bestand aan het uitpakken...
+ARV0104I: Klaar.
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: Er heeft zich een probleem voorgedaan bij het lezen van de archiefinhoud:
+ARV0111I: Er heeft zich een probleem voorgedaan bij de poging het archief uit te pakken:
+ARV0112I: De correcte bestandstype verwerker
+ARV0113I: of
+ARV0114I: Onbekende fout.
+ARV0115I: Kon het archieftype niet achterhalen.
+ARV0116I: De archiefkop is gecodeerd; kopdecodering voor dit archieftype is nog niet ge‹mplementeerd.
+ARV0117I: %1 kon niet op uw systeem gevonden worden.
+ARV0118I: Ondersteuning voor dit archieftype is nog niet ge‹mplementeerd.
+ARV0119I: Kan de doeldirectory niet instellen.
+ARV0120I: is een ZIP archief
+ARV0121I: is een multi-volume ZIP archief
+ARV0122I: is een RAR archief
+ARV0123I: is een multi-volume RAR archief
+ARV0124I: is een ARJ archief
+ARV0125I: is een Unix tape archief
+ARV0126I: is een GZIP-gecomprimeerd Unix tape archief
+ARV0127I: is een BZIP2-gecomprimeerd Unix tape archief
+ARV0128I: is een gecomprimeerd Unix tape archief
+ARV0129I: is een WarpIN archief
+ARV0130I: is een LZH archief
+ARV0131I: is een PACK [%1] archief
+ARV0132I: is een RPM archief
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: Een bestand met de naam %1 bestaat al.
+ARV0141I: Bestand bestaat
+ARV0142I: Deze actie zal elk bestaand bestand in %1 overschrijven dat ook voorkomt in %2.
+ARV0143I: Waarschuwing
+ARV0144I: Probleem
+ARV0145I: Fout
+ARV0146I: kon thread niet starten
+ARV0147I: Kon mapweergave niet openen.
+ARV0148I: Helpbestand ontbreekt
+

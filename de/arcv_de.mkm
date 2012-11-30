@@ -1,0 +1,164 @@
+; Message file for Archive Viewer
+; German version
+ARV
+; Common strings used throughout program
+ARV0001I: Archivbetrachter
+ARV0002I: ~OK
+ARV0003I: ~Abbruch
+ARV0004I: ~Hilfe
+ARV0005I: F~ortfahren
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: ~Datei
+ARV0011I: ~ôffnen...	Strg+ô
+ARV0012I: ~Entpacken...	Strg+E
+ARV0013I: ~Schlie·en
+ARV0014I: ~Beenden	F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: ~Optionen
+ARV0021I: Schri~ftart
+ARV0022I: ~Allgemein...
+ARV0023I: ~Status...
+ARV0024?:
+ARV0025I: ~Zeilenumbruch
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: ~Hilfe
+ARV0031I: EinfÅhrung
+ARV0032I: ~Archivbetrachter verwenden
+ARV0033I: Hilfe~inhalt
+ARV0034I: ~Produktinformation
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: ~Bemerkung
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Entpacken nach...
+ARV0051I: Einen Pfad auswÑhlen, in den entpackt werden soll:
+ARV0052I: Archivnamen an ausgewÑhlten Pfad anhÑngen
+ARV0053I: Ordner nach Entpacken îffnen
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Kennwort erforderlich
+ARV0061I: Zum Entpacken des Archivinhalts ist ein Kennwort erforderlich.
+ARV0062I: Zum Betrachten des Archivinhalts ist ein Kennwort erforderlich.
+ARV0063I: Kennwort eingeben:
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: Schriftart auswÑhlen
+ARV0068?:
+ARV0069?:
+ARV0070I: Produktinformation
+ARV0071I: Archivbetrachter
+ARV0072I: Version %1
+ARV0073I: (build %1)
+ARV0074I: (C) 2004-2011 Alex Taylor.
+ARV0075I: Lizensiert unter den Bedingungen der GNU General Public License. Einzelheiten mit F1 aufrufen.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}ô
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: Derzeit keine Datei geîffnet
+ARV0101I: Datei auswÑhlen
+ARV0102I: Lesen der Datei...
+ARV0103I: Entpacken der Datei...
+ARV0104I: Beendet.
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: Beim Einlesen des Archivinhalts ist ein Problem aufgetreten:
+ARV0111I: Beim Entpacken des Archivs ist ein Problem aufgetreten:
+ARV0112I: Die passende Verarbeitungsroutine fÅr den Dateityp
+ARV0113I: oder
+ARV0114I: Unbekannter Fehler.
+ARV0115I: Archivtyp konnte nicht festgestellt werden.
+ARV0116I: Der Header des Archivs ist verschlÅsselt; HeaderentschlÅsselung fÅr diesen Archivtyp wurde noch nicht implementiert.
+ARV0117I: %1 konnte nicht auf dem System gefunden werden.
+ARV0118I: UnterstÅtzung fÅr diesen Archivtyp ist noch nicht implementiert.
+ARV0119I: Zielverzeichnis kann nicht festgelegt werden.
+ARV0120I: ist ein ZIP-Archiv
+ARV0121I: ist ein mehrteiliges ZIP-Archiv
+ARV0122I: ist ein RAR-Archiv
+ARV0123I: ist ein mehrteiliges RAR-Archiv
+ARV0124I: ist ein ARJ-Archiv
+ARV0125I: ist ein Unix-Bandarchiv
+ARV0126I: ist ein mit GZIP-komprimiertes Unix-Bandarchiv
+ARV0127I: ist ein mit BZIP2-komprimiertes Unix-Bandarchiv
+ARV0128I: ist ein komprimiertes Unix-Bandarchiv
+ARV0129I: ist ein WarpIN-Archiv
+ARV0130I: ist ein LZH-Archiv
+ARV0131I: ist ein PACK [%1] -Archiv
+ARV0132I: ist ein RPM-Archiv
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: Eine Datei mit dem Namen %1 ist bereits vorhanden.
+ARV0141I: Datei bereits vorhanden
+ARV0142I: Dieser Vorgang Åberschreibt sÑmtliche Dateien unter %1, die auch in %2 vorhanden sind.
+ARV0143I: Warnung
+ARV0144I: Problem
+ARV0145I: Fehler
+ARV0146I: Thread konnte nicht gestartet werden.
+ARV0147I: Ordneranzeige konnte nicht geîffnet werden.
+ARV0148I: Fehlende Hilfedatei
+

@@ -1,0 +1,164 @@
+; Message file for Archive Viewer
+; English version
+ARV
+; Common strings used throughout program
+ARV0001I: Archive Viewer
+ARV0002I: ~OK
+ARV0003I: 取消(~C)
+ARV0004I: 解說(~H)
+ARV0005I: 繼續(~O)
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: 檔案(~F)
+ARV0011I: 開啟(~O)...	Ctrl+O
+ARV0012I: 解壓縮檔(~E)	Ctrl+E
+ARV0013I: 關閉(~C)
+ARV0014I: 離開(~X)	F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: 設定(~O)
+ARV0021I: 字體(~F)
+ARV0022I: 主設定(~M)...
+ARV0023I: 狀態(~S)...
+ARV0024?:
+ARV0025I: 文字自動斷行(~W)
+ARV0026?:
+ARV0027?:
+ARV0028?:
+ARV0029?:
+ARV0030I: 解說(~H)
+ARV0031I: 介紹
+ARV0032I: 使用 Archive Viewer(~U)
+ARV0033I: 解說內容(~C)
+ARV0034I: 產品資訊(~P)
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: 註解(~C)
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: 解開到...
+ARV0051I: 將壓縮檔解開到：
+ARV0052I: 目錄名稱為壓縮檔名稱
+ARV0053I: 解開後即開啟資料夾
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: 需要密碼
+ARV0061I: 需要密碼來解開此壓縮檔的檔案。
+ARV0062I: 需要密碼來檢視此壓縮檔的檔案。
+ARV0063I: 輸入密碼：
+ARV0064?:
+ARV0065?:
+ARV0066?:
+ARV0067I: 選擇字體
+ARV0068?:
+ARV0069?:
+ARV0070I: 產品資訊
+ARV0071I: Archive Viewer
+ARV0072I: 版本 %1
+ARV0073I: (build %1)
+ARV0074I: (C) 2004-2011 Alex Taylor.  All rights reserved
+ARV0075I: 本程式授權採用 GNU 通用公共授權，詳情請按 F1。
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: 尚未選取檔案
+ARV0101I: 選取檔案
+ARV0102I: 讀取檔案中...
+ARV0103I: 解開檔案中...
+ARV0104I: 完成。
+ARV0105?:
+ARV0106?:
+ARV0107?:
+ARV0108?:
+ARV0109?:
+ARV0110I: 嘗試讀取壓縮檔內容時遇到問題：
+ARV0111I: 嘗試解開壓縮檔時遇到問題：
+ARV0112I: 適當的檔案類型處理常式
+ARV0113I: 或
+ARV0114I: 未知的錯誤。
+ARV0115I: 無法偵測壓縮檔類型。
+ARV0116I: 壓縮檔的 header 已被加密；尚未支援此壓縮檔類型的 header 解密。
+ARV0117I: 系統上找不到 %1。
+ARV0118I: 尚未支援此壓縮檔類型。
+ARV0119I: 無法設定目標目錄。
+ARV0120I: 是 ZIP 壓縮檔
+ARV0121I: 是 multi-volume ZIP 壓縮檔
+ARV0122I: 是 RAR 壓縮檔
+ARV0123I: 是 multi-volume RAR 壓縮檔
+ARV0124I: 是 ARJ 壓縮檔
+ARV0125I: 是 Unix tape 壓縮檔
+ARV0126I: 是 GZIP-compressed Unix tape 壓縮檔
+ARV0127I: 是 BZIP2-compressed Unix tape 壓縮檔
+ARV0128I: 是 compressed Unix tape 壓縮檔
+ARV0129I: 是 WarpIN 壓縮檔
+ARV0130I: 是 LZH 壓縮檔
+ARV0131I: 是 PACK [%1] 壓縮檔
+ARV0132I: 是 RPM 壓縮檔
+ARV0133?:
+ARV0134?:
+ARV0135?:
+ARV0136?:
+ARV0137?:
+ARV0138?:
+ARV0139?:
+ARV0140I: 檔案名稱 %1 已存在。
+ARV0141I: 檔案已存在
+ARV0142I: 這個動作將會覆寫 %1 底下及存在 %2 中的所有檔案。
+ARV0143I: 警告
+ARV0144I: 問題
+ARV0145I: 錯誤
+ARV0146I: 無法啟動執行緒。
+ARV0147I: 無法開啟資料夾。
+ARV0148I: 遺失解說檔案
+

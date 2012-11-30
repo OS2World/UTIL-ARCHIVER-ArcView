@@ -1,0 +1,169 @@
+; Message file for Archive Viewer
+; Japanese (日本語) version
+ARV
+; Common strings used throughout program
+ARV0001I: アーカイブ・ビューワー
+ARV0002I: 了解
+ARV0003I: 取消
+ARV0004I: ヘルプ
+ARV0005I: 続ける
+ARV0006?:
+ARV0007?:
+ARV0008?:
+ARV0009?:
+; UI controls
+; Menu items
+;   (NOTE: if accelerator reminder text is changed you must also change the
+;    actual accelerator.  Function-key accelerators (e.g. F3) are hard-coded in
+;    the source; language-dependent ones (e.g. Ctrl+O) are defined as separate
+;    messages, see below.)
+ARV0010I: フャイル(~F)
+ARV0011I: オーペン(~O)...	Ctrl+O
+ARV0012I: 引抜く(~E)...	Ctrl+E
+ARV0013I: クローズ(~C)
+ARV0014I: 終了(~X)	F3
+ARV0015?:
+ARV0016?:
+ARV0017?:
+ARV0018?:
+ARV0019?:
+ARV0020I: オプション(~O)
+ARV0021I: フォント(~F)
+ARV0022I: メーン・ウインドー(~M)...
+ARV0023I: ステータス(~S)...
+ARV0024?:
+ARV0025I: テキスト・ウラップ(~W)
+ARV0026I: 検索(~F)
+ARV0027I: 再検索(~G)
+ARV0028?:
+ARV0029?:
+ARV0030I: ヘルプ(~H)
+ARV0031I: 手引
+ARV0032I: アーカイブ・ビューワーを使い(~U)
+ARV0033I: ヘルプ目次(~C)
+ARV0034I: 製品情報(~P)
+ARV0035?:
+ARV0036?:
+ARV0037?:
+ARV0038?:
+ARV0039?:
+ARV0040I: コメント(~C)
+ARV0041?:
+ARV0042?:
+ARV0043?:
+ARV0044?:
+ARV0045?:
+ARV0046?:
+ARV0047?:
+ARV0048?:
+ARV0049?:
+; Secondary dialogs
+ARV0050I: Extract To...
+ARV0051I: Choose a path to extract to:
+ARV0052I: Append archive name to selected path
+ARV0053I: Open folder after extraction
+ARV0054?:
+ARV0055?:
+ARV0056?:
+ARV0057?:
+ARV0058?:
+ARV0059?:
+ARV0060I: Password Required
+ARV0061I: A password is required to extract the contents of this archive.
+ARV0062I: A password is required to view the contents of this archive.
+ARV0063I: Enter password:
+ARV0064I: An incorrect password was specified.  Please try again.
+ARV0065?:
+ARV0066?:
+ARV0067I: フォントを択ぶ
+ARV0068?:
+ARV0069?:
+ARV0070I: Product Information
+ARV0071I: アーカイブ・ビューワー
+ARV0072I: ﾊﾞｰｼﾞｮﾝ %1
+ARV0073I: (ﾋﾞﾙﾄﾞ %1)
+ARV0074I: (C) 2004-2011 Alex Taylor.
+ARV0075I: Licensed under the terms of the GNU General Public License.  Press F1 for details.
+ARV0076?:
+ARV0077?:
+ARV0078?:
+ARV0079?:
+; Language-dependent accelerators
+; File->Open
+ARV0080I: {Ctrl}O
+; File->Extract
+ARV0081I: {Ctrl}E
+ARV0082?:
+ARV0083?:
+ARV0084?:
+ARV0085?:
+ARV0086?:
+ARV0087?:
+ARV0088?:
+ARV0089?:
+ARV0090?:
+ARV0091?:
+ARV0092?:
+ARV0093?:
+ARV0094?:
+ARV0095?:
+ARV0096?:
+ARV0097?:
+ARV0098?:
+ARV0099?:
+; User messages
+ARV0100I: No file is currently open
+ARV0101I: Select File
+; - these two are for the titlebar
+ARV0102I: reading file...
+ARV0103I: extracting file...
+; - and these next three are for the status bar
+ARV0104I: Done.
+ARV0105I: Reading file ...
+ARV0106I: Extracting file ...
+; Misc. other text
+ARV0107I: is a single file compressed using '%1'
+ARV0108I: (compressed size %1 bytes)
+ARV0109?:
+ARV0110I: A problem was encountered when trying to read the archive contents:
+ARV0111I: A problem was encountered when trying to extract the archive:
+ARV0112I: The appropriate file-type handler
+ARV0113I: or
+ARV0114I: Unknown error.
+ARV0115I: Could not determine the archive type.
+ARV0116I: The archive header is encrypted; header decryption for this archive type has not yet been implemented.
+ARV0117I: %1 could not be found on your system.
+ARV0118I: Support for this archive type has not yet been implemented.
+ARV0119I: Unable to set the target directory.
+; File type displays for the status bar
+ARV0120I: : ZIP アーカイブ
+ARV0121I: : 多巻の ZIP アーカイブ
+ARV0122I: : RAR アーカイブ
+ARV0123I: : 多巻の RAR アーカイブ
+ARV0124I: : ARJ アーカイブ
+ARV0125I: : Unix テープ・アーカイブ
+ARV0126I: : ｢gzip｣で圧縮された Unix テープ・アーカイブ
+ARV0127I: : ｢bzip2｣で圧縮された Unix テープ・アーカイブ
+ARV0128I: : 圧縮された Unix テープ・アーカイブ
+ARV0129I: : WarpIN アーカイブ
+ARV0130I: : LZH アーカイブ
+ARV0131I: : PACK [%1] アーカイブ
+ARV0132I: : RPM パッケージ
+ARV0133I: : ｢lzip｣で圧縮された Unix テープ・アーカイブ
+ARV0134I: : 7Z アーカイブ
+ARV0135?:
+ARV0136I: : MemDisk のディスク・イメージ
+ARV0137?:
+ARV0138?:
+ARV0139?:
+; Error/warning messages
+ARV0140I: A file named %1 already exists.
+ARV0141I: File Exists
+ARV0142I: This action will overwrite any existing files under %1 which also exist in %2.
+ARV0143I: Warning
+ARV0144I: Problem
+ARV0145I: Error
+ARV0146I: could not start thread.
+ARV0147I: Unable to open folder view.
+ARV0148I: Missing help file
+
