@@ -3,7 +3,7 @@
 Main:
     SIGNAL ON HALT
 
-    PARSE ARG window, filespec, type, flags, password, openwps, destination
+    PARSE ARG window, filespec, type, flags, password, openwps, destination, mask
 
     IF ( filespec \= null ) THEN DO
 
@@ -14,13 +14,14 @@ Main:
         IF type == '' THEN
             status = 1
         ELSE
-            status = ExtractArchive( filespec, type, flags, password, destination )
+            status = ExtractArchive( filespec, type, flags, password, destination, mask )
 
         CALL VRSet window, 'Pointer',    '<default>'
 
         IF status == 99 THEN DO
             IF password <> '' THEN flags = flags || 'I'
-            CALL VRMethod 'Application', 'PostQueue', 0, 1, 'CALL ExtractPassword', 'type', type, 'flags', flags
+            CALL VRMethod 'Application', 'PostQueue', 0, 1, 'CALL ExtractPassword', 'type', type, 'flags', flags,,
+                                                                                    'openwps', openwps, 'destination', destination, 'mask', mask
             RETURN
         END
         ELSE IF status <> 0 THEN DO
@@ -29,7 +30,7 @@ Main:
         END
 
         CALL VRMethod 'Application', 'PutVar', 'entries.'
-        CALL VRMethod 'Application', 'PostQueue', 0, 1, 'CALL FinishExtraction', 'open', openwps, 'destination', destination
+        CALL VRMethod 'Application', 'PostQueue', 0, 1, 'CALL FinishExtraction', 'open', openwps, 'destination', destination, 'mask', mask
 
     END
 
@@ -49,12 +50,12 @@ EXIT
 /*:VRX         ArjExtract
 */
 ArjExtract: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, flags, password, destination
+    PARSE ARG filespec, flags, password, destination, mask
 
     IF ( POS('H', flags ) > 0 ) | ( POS('E', flags ) > 0 ) THEN
-        command  = 'arj x "'filespec'" "'destination'" -g'password '-i -jycknorsvy 2>&1 |rxqueue'
+        command  = 'arj x "'filespec'" "'destination'" -g'password '-i -jycknorsvy' mask '2>&1 |rxqueue'
     ELSE
-        command  = 'arj x "'filespec'" "'destination'" -i -jycknorsvy 2>&1 |rxqueue'
+        command  = 'arj x "'filespec'" "'destination'" -i -jycknorsvy' mask '2>&1 |rxqueue'
 
     /*
      * Create the target directory if necessary.
@@ -107,7 +108,7 @@ RETURN found
 /*:VRX         ExtractArchive
 */
 ExtractArchive: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, type, flags, password, destination
+    PARSE ARG filespec, type, flags, password, destination, mask
 
     /*
      * Much of the code is duplicated between each xxxExtract function.  It seems
@@ -117,18 +118,18 @@ ExtractArchive: PROCEDURE EXPOSE entries.
      */
 
     SELECT
-        WHEN type == 'ZIP' THEN status = ZipExtract(    filespec, flags, password, destination )
-        WHEN type == 'TAR' THEN status = TarExtract(    filespec, flags, password, destination )
-        WHEN type == 'TGZ' THEN status = TarGzExtract(  filespec, flags, password, destination )
-        WHEN type == 'TBZ' THEN status = TarBz2Extract( filespec, flags, password, destination )
-        WHEN type == 'TLZ' THEN status = TarLzExtract(  filespec, flags, password, destination )
-        WHEN type == 'TZ'  THEN status = TarZExtract(   filespec, flags, password, destination )
-        WHEN type == 'RAR' THEN status = RarExtract(    filespec, flags, password, destination )
-        WHEN type == 'ARJ' THEN status = ArjExtract(    filespec, flags, password, destination )
-        WHEN type == 'RPM' THEN status = RpmExtract(    filespec, flags, password, destination )
-        WHEN type == 'WPI' THEN status = WpiExtract(    filespec, flags, password, destination )
-        WHEN type == '7Z'  THEN status = SzExtract(     filespec, flags, password, destination )
-        WHEN type == 'LHA' THEN status = LhaExtract(    filespec, flags, password, destination )
+        WHEN type == 'ZIP' THEN status = ZipExtract(    filespec, flags, password, destination, mask )
+        WHEN type == 'TAR' THEN status = TarExtract(    filespec, flags, password, destination, mask )
+        WHEN type == 'TGZ' THEN status = TarGzExtract(  filespec, flags, password, destination, mask )
+        WHEN type == 'TBZ' THEN status = TarBz2Extract( filespec, flags, password, destination, mask )
+        WHEN type == 'TLZ' THEN status = TarLzExtract(  filespec, flags, password, destination, mask )
+        WHEN type == 'TZ'  THEN status = TarZExtract(   filespec, flags, password, destination, mask )
+        WHEN type == 'RAR' THEN status = RarExtract(    filespec, flags, password, destination, mask )
+        WHEN type == 'ARJ' THEN status = ArjExtract(    filespec, flags, password, destination, mask )
+        WHEN type == 'RPM' THEN status = RpmExtract(    filespec, flags, password, destination, mask )
+        WHEN type == 'WPI' THEN status = WpiExtract(    filespec, flags, password, destination, mask )
+        WHEN type == '7Z'  THEN status = SzExtract(     filespec, flags, password, destination, mask )
+        WHEN type == 'LHA' THEN status = LhaExtract(    filespec, flags, password, destination, mask )
         WHEN ( type == 'GZ') | ( type == 'BZ') | ( type == 'LZ') | ( type == 'Z') THEN
             status = UncompressFile( type, filespec, destination )
         OTHERWISE               status = 4
@@ -137,6 +138,23 @@ ExtractArchive: PROCEDURE EXPOSE entries.
     IF ( status == 0 ) & ( entries.0 == 0 ) THEN status = 9
 
 RETURN status
+
+/*:VRX         GetTarVersion
+*/
+GetTarVersion: PROCEDURE
+    tarver = '0'
+    testqueue = RXQUEUE('CREATE')
+    defqueue  = RXQUEUE('SET', testqueue )
+    ADDRESS CMD '@tar --version 2>&1 |rxqueue' testqueue
+    IF QUEUED() \= 0 THEN DO
+        PARSE PULL verstring
+        _verpos = VERIFY( verstring, '0123456789', 'M')
+        PARSE VAR verstring =(_verpos) _ver .
+        tarver = _ver
+    END
+    CALL RXQUEUE 'SET',    defqueue
+    CALL RXQUEUE 'DELETE', testqueue
+RETURN tarver
 
 /*:VRX         Halt
 */
@@ -147,9 +165,7 @@ exit
 /*:VRX         LhaExtract
 */
 LhaExtract:  PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
-
-    command = 'lha x -ncml2 "'filespec'" 2>&1 |rxqueue'
+    ARG filespec, flags, password, destination, mask
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -164,6 +180,8 @@ LhaExtract:  PROCEDURE EXPOSE entries.
     ok = DIRECTORY( destination )
     IF ok == '' THEN RETURN 5
     destination = STRIP( destination, 'T', '\')
+
+    command = 'lha x -ncml2i2 "'filespec'" "'destination'/"' mask '2>&1 |rxqueue'
 
     /*
      * Now extract the archive.
@@ -198,14 +216,14 @@ RETURN 0
 /*:VRX         RarExtract
 */
 RarExtract: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, flags, password, destination
+    PARSE ARG filespec, flags, password, destination, mask
 
     IF password == '' THEN password = '-'
 
     SELECT
-        WHEN CheckForProgram('UNRAR.EXE') == 1 THEN command = 'unrar x "'filespec'" -idp -p'password '-o+ 2>&1 |rxqueue'
-        WHEN CheckForProgram('RAR32.EXE') == 1 THEN command = 'rar32 x "'filespec'" "'destination'" -idp -p'password '-o+ 2>&1 |rxqueue'
-        WHEN CheckForProgram('RAR.EXE') == 1   THEN command = 'rar x "'filespec'" "'destination'" -idp -p'password '-o+ 2>&1 |rxqueue'
+        WHEN CheckForProgram('UNRAR.EXE') == 1 THEN command = 'unrar x "'filespec'" -idp -p'password '-o+' mask '2>&1 |rxqueue'
+        WHEN CheckForProgram('RAR32.EXE') == 1 THEN command = 'rar32 x "'filespec'" "'destination'" -idp -p'password '-o+' mask '2>&1 |rxqueue'
+        WHEN CheckForProgram('RAR.EXE') == 1   THEN command = 'rar x "'filespec'" "'destination'" -idp -p'password '-o+' mask '2>&1 |rxqueue'
         OTHERWISE RETURN 3
     END
 
@@ -267,15 +285,15 @@ RETURN status
 /*:VRX         RpmExtract
 */
 RpmExtract: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, flags, password, destination
+    PARSE ARG filespec, flags, password, destination, mask
 
     IF CheckForProgram('CPIO.EXE') == 0 THEN
         RETURN 3
 
     IF ( CheckForProgram('7Z.EXE') == 1 ) THEN
-        command = '7z x -so -bd -y "'filespec'" 2>NUL | cpio -d -i -v -u --no-absolute-filenames --quiet 2>&1 |rxqueue'
+        command = '7z x -so -bd -y "'filespec'" 2>NUL | cpio -d -i -v -u --no-absolute-filenames --quiet' mask '2>&1 |rxqueue'
     ELSE IF ( CheckForProgram('RPM2CPIO.EXE') == 1 ) THEN
-        command = 'rpm2cpio "'filespec'" 2>NUL | cpio -d -i -v -u --no-absolute-filenames --quiet 2>&1 |rxqueue'
+        command = 'rpm2cpio "'filespec'" 2>NUL | cpio -d -i -v -u --no-absolute-filenames --quiet' mask '2>&1 |rxqueue'
     ELSE
         RETURN 3
 
@@ -323,7 +341,7 @@ RETURN 0
 /*:VRX         SzExtract
 */
 SzExtract: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, flags, password, destination
+    PARSE ARG filespec, flags, password, destination, mask
 
     IF password == '' THEN password = '-'
     SELECT
@@ -332,7 +350,7 @@ SzExtract: PROCEDURE EXPOSE entries.
         WHEN CheckForProgram('7ZR.EXE') == 1 THEN sz_exe = '7zr'
         OTHERWISE RETURN 3
     END
-    command = sz_exe 'x -o"'destination'" -p'password '-bd -y "'filespec'" 2>&1|rxqueue'
+    command = sz_exe 'x -o"'destination'" -p'password '-bd -y "'filespec'"' mask '2>&1|rxqueue'
 
     listqueue = RXQUEUE('CREATE')
     defqueue  = RXQUEUE('SET', listqueue )
@@ -362,27 +380,14 @@ RETURN open_ok
 /*:VRX         TarBz2Extract
 */
 TarBz2Extract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
+    ARG filespec, flags, password, destination, mask
 
-    /* Check the TAR version because the bzip2 syntax varies.
+    /* Check the TAR version because the syntax varies.
      */
-    tarver = '0'
-    testqueue = RXQUEUE('CREATE')
-    defqueue  = RXQUEUE('SET', testqueue )
-    ADDRESS CMD '@tar --version 2>&1 |rxqueue' testqueue
-    IF QUEUED() \= 0 THEN DO
-        PARSE PULL verstring
-        _verpos = VERIFY( verstring, '0123456789', 'M')
-        PARSE VAR verstring =(_verpos) _ver .
-        tarver = _ver
-    END
-    CALL RXQUEUE 'SET',    defqueue
-    CALL RXQUEUE 'DELETE', listqueue
-
-    IF tarver <= '1.10' THEN
-        command = 'tar -x -v --zip=bzip2 -f "'filespec'" 2>&1 |rxqueue'
+    IF GetTarVersion() <= '1.10' THEN
+        command = 'tar -x -v --zip=bzip2 -f "'filespec'"' mask '2>&1 |rxqueue'
     ELSE
-        command = 'tar xvjf "'filespec'" 2>&1 |rxqueue'
+        command = 'tar -x -v -j --ignore-case -f "'filespec'"' mask '2>&1 |rxqueue'
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -428,9 +433,14 @@ RETURN 0
 /*:VRX         TarExtract
 */
 TarExtract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
+    ARG filespec, flags, password, destination, mask
 
-    command = 'tar xvf "'filespec'" 2>&1 |rxqueue'
+    /* Check the TAR version because the case-sensitivity option varies.
+     */
+    IF GetTarVersion() <= '1.10' THEN
+        command = 'tar xvf "'filespec'"' mask '2>&1 |rxqueue'
+    ELSE
+        command = 'tar -x -v --ignore-case -f "'filespec'"' mask '2>&1 |rxqueue'
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -476,9 +486,14 @@ RETURN 0
 /*:VRX         TarGzExtract
 */
 TarGzExtract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
+    ARG filespec, flags, password, destination, mask
 
-    command = 'tar xvzf "'filespec'" 2>&1 |rxqueue'
+    /* Check the TAR version because the case-sensitivity option varies.
+     */
+    IF GetTarVersion() <= '1.10' THEN
+        command = 'tar xvzf "'filespec'"' mask '2>&1 |rxqueue'
+    ELSE
+        command = 'tar -x -v -z --ignore-case -f "'filespec'"' mask '2>&1 |rxqueue'
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -524,7 +539,7 @@ RETURN 0
 /*:VRX         TarLzExtract
 */
 TarLzExtract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
+    ARG filespec, flags, password, destination, mask
 
     SELECT
         WHEN CheckForProgram('LZIP.EXE')   == 1 THEN lz_command = 'lzip'
@@ -533,27 +548,12 @@ TarLzExtract: PROCEDURE EXPOSE entries.
     END
 
     /*
-     * Check the TAR version because the lzip syntax varies.
+     * Check the TAR version because the syntax varies.
      */
-    tarver = '0'
-    testqueue = RXQUEUE('CREATE')
-    defqueue  = RXQUEUE('SET', testqueue )
-    ADDRESS CMD '@tar --version 2>&1 |rxqueue' testqueue
-    IF QUEUED() \= 0 THEN DO
-        PARSE PULL verstring
-        _verpos = VERIFY( verstring, '0123456789', 'M')
-        PARSE VAR verstring =(_verpos) _ver .
-        tarver = _ver
-    END
-    CALL RXQUEUE 'SET',    defqueue
-    CALL RXQUEUE 'DELETE', listqueue
-
-    IF tarver <= '1.10' THEN
-        compress_switch = '--zip'
+    IF GetTarVersion() <= '1.10' THEN
+        command = 'tar -x -v --zip='lz_command '-f "'filespec'"' mask '2>&1 |rxqueue'
     ELSE
-        compress_switch = '--use-compress-program'
-
-    command = 'tar -x -v' compress_switch'='lz_command '-f "'filespec'" 2>&1 |rxqueue'
+        command = 'tar -x -v --ignore-case --use-compress-program='lz_command '-f "'filespec'"' mask '2>&1 |rxqueue'
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -599,9 +599,14 @@ RETURN 0
 /*:VRX         TarZExtract
 */
 TarZExtract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
+    ARG filespec, flags, password, destination, mask
 
-    command = 'tar -x -v --compress -f "'filespec'" 2>&1 |rxqueue'
+    /* Check the TAR version because the case-sensitivity option varies.
+     */
+    IF GetTarVersion() <= '1.10' THEN
+        command = 'tar -x -v --compress -f "'filespec'"' mask '2>&1 |rxqueue'
+    ELSE
+        command = 'tar -x -v --compress --ignore-case -f "'filespec'"' mask '2>&1 |rxqueue'
 
     /*
      * Change to the target directory, creating it first if necessary.
@@ -718,9 +723,7 @@ RETURN status
 /*:VRX         WpiExtract
 */
 WpiExtract: PROCEDURE EXPOSE entries.
-    ARG filespec, flags, password, destination
-
-    command = 'wic -x "'filespec'" 2>&1 |rxqueue'
+    ARG filespec, flags, password, destination, mask
 
     PARSE VALUE SysIni('USER', 'WarpIN', 'Path') WITH warpin '00'x .
     IF LEFT( warpin, 6 ) == 'ERROR:' THEN RETURN 3
@@ -749,24 +752,61 @@ WpiExtract: PROCEDURE EXPOSE entries.
     listqueue = RXQUEUE('CREATE')
     defqueue  = RXQUEUE('SET', listqueue )
 
-    ADDRESS CMD '@' command listqueue
-
-    i = 0
-    DO QUEUED()
-        PARSE PULL line
-        /* Skip these lines as they make the output needlessly messy */
-        IF line == '' THEN ITERATE
-        ELSE IF line == entries.i THEN ITERATE
-        ELSE IF LEFT( line, 18 ) == 'Extracting package' THEN ITERATE
-        /* Also filter out incomplete-progress lines */
-        ELSE IF POS('%)', line ) > 0 THEN DO
-            PARSE VAR line . '('_percent'%)' .
-            IF _percent <> '100' THEN ITERATE
+    IF mask <> '' THEN DO
+        /* If a filemask was specified, query all the package numbers in the
+         * archive and then try each of them one by one.
+         */
+        ADDRESS CMD '@wic -l "'filespec'" 2>&1 |rxqueue' listqueue
+        wpaks = ''
+        DO QUEUED()
+            PARSE PULL line
+            IF LEFT( line, 8 ) == 'Package ' THEN DO
+                PARSE VAR line 'Package ' _pckno .
+                wpaks = wpaks _pckno
+            END
         END
-        i = i + 1
-        entries.i = line
+        i = 0
+        DO j = 1 TO WORDS( wpaks )
+            pak = WORD( wpaks, j )
+            IF VERIFY( pak, '0123456789') <> 0 THEN ITERATE
+            command = 'wic -x "'filespec'"' pak mask '2>&1 |rxqueue'
+            ADDRESS CMD '@' command listqueue
+            DO QUEUED()
+                PARSE PULL line
+                /* Skip these lines as they make the output needlessly messy */
+                IF line == '' THEN ITERATE
+                ELSE IF line == entries.i THEN ITERATE
+                /* Also filter out incomplete-progress lines */
+                ELSE IF POS('%)', line ) > 0 THEN DO
+                    PARSE VAR line . '('_percent'%)' .
+                    IF _percent <> '100' THEN ITERATE
+                END
+                i = i + 1
+                entries.i = line
+            END
+        END
+        entries.0 = i
     END
-    entries.0 = i
+    ELSE DO
+        command = 'wic -x "'filespec'" 2>&1 |rxqueue'
+        ADDRESS CMD '@' command listqueue
+        i = 0
+        DO QUEUED()
+            PARSE PULL line
+            /* Skip these lines as they make the output needlessly messy */
+            IF line == '' THEN ITERATE
+            ELSE IF line == entries.i THEN ITERATE
+            /* ELSE IF LEFT( line, 18 ) == 'Extracting package' THEN ITERATE */
+            /* Also filter out incomplete-progress lines */
+            ELSE IF POS('%)', line ) > 0 THEN DO
+                PARSE VAR line . '('_percent'%)' .
+                IF _percent <> '100' THEN ITERATE
+            END
+            i = i + 1
+            entries.i = line
+        END
+        entries.0 = i
+    END
 
     CALL RXQUEUE 'SET',    defqueue
     CALL RXQUEUE 'DELETE', listqueue
@@ -785,15 +825,18 @@ RETURN 0
 /*:VRX         ZipExtract
 */
 ZipExtract: PROCEDURE EXPOSE entries.
-    PARSE ARG filespec, flags, password, destination
+    PARSE ARG filespec, flags, password, destination, mask
 
     /* The ZIP "-d" option requires a trailing backslash to be doubled. */
     IF RIGHT( destination, 1 ) == "\" THEN destination = destination"\"
 
+    /* Let the user assume responsibility for quoting the mask? */
+    /*IF mask <> '' THEN mask = '"'mask'"'*/
+
     IF ( POS('H', flags ) > 0 ) | ( POS('E', flags ) > 0 ) THEN
-        command = 'unzip -o -P 'password' "'filespec'" -d "'destination'" 2>&1 |rxqueue'
+        command = 'unzip -o -P 'password' "'filespec'"' mask '-d "'destination'" 2>&1 |rxqueue'
     ELSE
-        command = 'unzip -o "'filespec'" -d "'destination'" 2>&1 |rxqueue'
+        command = 'unzip -o "'filespec'"' mask ' -d "'destination'" 2>&1 |rxqueue'
 
     listqueue = RXQUEUE('CREATE')
     defqueue  = RXQUEUE('SET', listqueue )

@@ -22,8 +22,8 @@ ARV0011I: ~Open...	Ctrl+O
 ARV0012I: ~Extract...	Ctrl+E
 ARV0013I: ~Close
 ARV0014I: E~xit	F3
-ARV0015?:
-ARV0016?:
+ARV0015I: Extract ~name...	Ctrl+N
+ARV0016I: ~View file...	Ctrl+V
 ARV0017?:
 ARV0018?:
 ARV0019?:
@@ -33,8 +33,8 @@ ARV0022I: ~Main...
 ARV0023I: ~Status...
 ARV0024?:
 ARV0025I: ~Wrap text
-ARV0026I: F~ind...
-ARV0027I: Find ~again
+ARV0026I: F~ind...	Ctrl+F
+ARV0027I: Find a~gain	Ctrl+G
 ARV0028?:
 ARV0029?:
 ARV0030I: ~Help
@@ -62,11 +62,11 @@ ARV0050I: Extract To...
 ARV0051I: Choose a path to extract to:
 ARV0052I: Append archive name to selected path
 ARV0053I: Open folder after extraction
-ARV0054?:
-ARV0055?:
-ARV0056?:
-ARV0057?:
-ARV0058?:
+ARV0054I: Name or mask of files to extract:
+ARV0055I: Name of file to extract and view:
+ARV0056I: Enter search text:
+ARV0057I: Find Text
+ARV0058I: View File
 ARV0059?:
 ARV0060I: Password Required
 ARV0061I: A password is required to extract the contents of this archive.
@@ -82,7 +82,7 @@ ARV0070I: Product Information
 ARV0071I: Archive Viewer
 ARV0072I: Version %1
 ARV0073I: (build %1)
-ARV0074I: (C) 2004-2011 Alex Taylor.
+ARV0074I: (C) 2004-2013 Alex Taylor.
 ARV0075I: Licensed under the terms of the GNU General Public License.  Press F1 for details.
 ARV0076?:
 ARV0077?:
@@ -93,10 +93,14 @@ ARV0079?:
 ARV0080I: {Ctrl}O
 ; File->Extract
 ARV0081I: {Ctrl}E
-ARV0082?:
-ARV0083?:
-ARV0084?:
-ARV0085?:
+; File->Extract name
+ARV0082I: {Ctrl}N
+; File->View file
+ARV0083I: {Ctrl}V
+; View->Find
+ARV0084I: {Ctrl}F
+; View->Find again
+ARV0085I: {Ctrl}G
 ARV0086?:
 ARV0087?:
 ARV0088?:
@@ -166,4 +170,6 @@ ARV0145I: Error
 ARV0146I: could not start thread.
 ARV0147I: Unable to open folder view.
 ARV0148I: Missing help file
+ARV0149I: A file named %1 already exists. This file will be replaced (overwritten) if you continue.
+
 

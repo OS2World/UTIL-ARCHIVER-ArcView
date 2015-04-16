@@ -1,7 +1,7 @@
 ; Message file for Archive Viewer
 ; French version
 ; Translator.: Guillaume Gay <guillaume.gay@bigfoot.com>
-; Version....: 2008-04-25
+; Version....: 2012-03-20
 ARV
 ; Common strings used throughout program
 ARV0001I: Archive Viewer
@@ -31,12 +31,12 @@ ARV0018?:
 ARV0019?:
 ARV0020I: ~Options
 ARV0021I: ~Police...
-ARV0022I: ...~principale
-ARV0023I: ...d'ê~tat
+ARV0022I: Fenàtre ~principale
+ARV0023I: Barre d'ê~tat
 ARV0024?:
 ARV0025I: ~Reformater le texte
-ARV0026?:
-ARV0027?:
+ARV0026I: Re~chercher...
+ARV0027I: ~Poursuivre la recherche
 ARV0028?:
 ARV0029?:
 ARV0030I: ~Aide
@@ -74,7 +74,7 @@ ARV0060I: Mot de passe requis
 ARV0061I: Un mot de passe est requis pour extraire le contenu de cette archive.
 ARV0062I: Un mot de passe est requis pour afficher le contenu de cette archive.
 ARV0063I: Entrez le mote de passe :
-ARV0064?:
+ARV0064?: Le mot de passe indiquÇ est erronÇ. Veuillez rÇessayer. 
 ARV0065?:
 ARV0066?:
 ARV0067I: SÇlection de la police
@@ -116,14 +116,17 @@ ARV0099?:
 ; User messages
 ARV0100I: Aucun fichier n'est actuellement ouvert
 ARV0101I: SÇlection du fichier
+; - these two are for the titlebar
 ARV0102I: lecture du fichier...
 ARV0103I: extraction du du fichier...
+; - and these next three are for the status bar
 ARV0104I: TerminÇ.
-ARV0105?:
-ARV0106?:
-ARV0107?:
-ARV0108?:
-ARV0109?:
+ARV0105?: Lecture du fichier...
+ARV0106?: Eextraction du du fichier...
+; Misc. other text
+ARV0107?: est un seul fichier compressÇ en utilisant '%1'
+ARV0108?: (taille compressÇe %1 octets)
+ARV0109?: 
 ARV0110I: Un probläme est survenu Ö la tentative de lecture du contenu de l'archive :
 ARV0111I: Un probläme est survenu Ö la tentative de lecture d'extraction de l'archive :
 ARV0112I: Le descripteur de type de fichier appropriÇ
@@ -132,8 +135,9 @@ ARV0114I: Erreur inconnue.
 ARV0115I: DÇtermination du type de fichier impossible.
 ARV0116I: L'entàte de l'archive est chiffrÇ; le dÇchiffrage de l'entàte pour cette archive n'a pas encore ÇtÇ implÇmentÇ.
 ARV0117I: %1 introuvable sur votre systäme.
-ARV0118I: Le support pour ce type d'archive n'a pas encore ÇtÇ implÇmentÇ.
+ARV0118I: La prise en charge de ce type d'archive n'a pas encore ÇtÇ implÇmentÇe.
 ARV0119I: êtablissement du rÇpertoire de destination impossible.
+; File type displays for the status bar
 ARV0120I: est une archive ZIP
 ARV0121I: est une archive multi-volume ZIP
 ARV0122I: est une archive RAR
@@ -147,13 +151,14 @@ ARV0129I: est une archive WarpIn
 ARV0130I: est une archive LZH
 ARV0131I: est une archive PACK [%1]
 ARV0132I: est une archive RPM
-ARV0133?:
-ARV0134?:
+ARV0133?: est une archive de bande Unix compressÇe LZIP
+ARV0134?: est une archive 7Z
 ARV0135?:
-ARV0136?:
+ARV0136?: est une image de disque compressÇe MemDisk
 ARV0137?:
 ARV0138?:
 ARV0139?:
+; Error/warning messages
 ARV0140I: Un fichier nommÇ %1 existe dÇjÖ.
 ARV0141I: Fichier existant
 ARV0142I: Cette action Çcrasera tout fichier prÇsent dans %1 existant aussi dans %2.

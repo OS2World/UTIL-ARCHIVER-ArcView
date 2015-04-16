@@ -165,9 +165,11 @@ DisplayContents: PROCEDURE EXPOSE globals. settings.
 
     CALL VRSet VRWindow(),  'Pointer',  '<default>'
 
-    CALL VRSet 'MI_OPEN',    'Enabled',  1
-    CALL VRSet 'MI_EXTRACT', 'Enabled',  1
-    CALL VRSet 'MI_CLOSE',   'Enabled',  1
+    CALL VRSet 'MI_OPEN',        'Enabled',  1
+    CALL VRSet 'MI_EXTRACT',     'Enabled',  1
+    CALL VRSet 'MI_EXTRACTMASK', 'Enabled',  1
+    CALL VRSet 'MI_VIEWFILE',    'Enabled',  1
+    CALL VRSet 'MI_CLOSE',       'Enabled',  1
 
     CALL VRSet VRWindow(), 'Caption', NLVGetMessage( 1 ) '-' VRParseFileName( globals.!currentFile, 'NE')                           /* 1: "Archive Viewer" */
 
@@ -264,7 +266,7 @@ RETURN
 /*:VRX         ExtractFile
 */
 ExtractFile: PROCEDURE EXPOSE globals. settings.
-    PARSE ARG openwps, destination
+    PARSE ARG openwps, destination, mask
 
     password = ''
 
@@ -282,7 +284,7 @@ ExtractFile: PROCEDURE EXPOSE globals. settings.
                                                   globals.!currentFile,,
                                                   globals.!currentType,,
                                                   globals.!currentFlags,,
-                                                  password, openwps, destination )
+                                                  password, openwps, destination, mask )
     IF tid = -1 THEN DO
         CALL VRSet VRWindow(), 'StatusText', NLVGetMessage( 145 )':' NLVGetMessage( 146 )       /* 145: "Error";  146: "could not start thread." */
         RETURN
@@ -294,7 +296,9 @@ ExtractFile: PROCEDURE EXPOSE globals. settings.
 
     CALL VRSet 'MI_EXTRACT', 'Enabled',  0
     CALL VRSet 'MI_OPEN',    'Enabled',  0
-    CALL VRSet 'MLE_VIEWER', 'Value', ''
+
+    IF openwps <> 2 THEN
+        CALL VRSet 'MLE_VIEWER', 'Value', ''
 
 RETURN
 
@@ -307,7 +311,11 @@ ExtractPassword:
      * password, then call the Extract thread again (unless the user cancels).
      */
 
+    globals.!currentType  = VRInfo('type')
     globals.!currentFlags = VRInfo('flags')
+    openwps     = VRInfo('openwps')
+    destination = VRInfo('destination')
+    mask        = VRInfo('mask')
 
     password = ''
     action = 'EXTRACT'
@@ -320,7 +328,12 @@ ExtractPassword:
     END
     ELSE DO
         globals.!currentPassword = password
-        tid = VRMethod('Application', 'StartThread', 'OpenFile', VRWindow(), globals.!currentFile, password )
+/*        tid = VRMethod('Application', 'StartThread', 'OpenFile', VRWindow(), globals.!currentFile, password ) */
+        tid = VRMethod('Application', 'StartThread', 'Extract', VRWindow(), globals.!currentFile,,
+                                                                            globals.!currentType,,
+                                                                            globals.!currentFlags,,
+                                                                            globals.!currentPassword,,
+                                                                            openwps, destination, mask ) 
         IF tid = -1 THEN DO
             CALL VRSet VRWindow(), 'StatusText', NLVGetMessage( 145 )':' NLVGetMessage( 146 )       /* 145: "Error";  146: "could not start thread." */
             RETURN
@@ -350,6 +363,7 @@ FinishExtraction: PROCEDURE EXPOSE globals. settings.
     CALL VRMethod 'Application', 'GetVar', 'entries.'
     openview = VRInfo('open')
     destpath = VRInfo('destination')
+    mask     = TRANSLATE( VRInfo('mask'), '\', '/')
 
     /* Output the result */
     CALL VRSet VRWindow(),   'Pointer',  'WAIT'
@@ -382,6 +396,13 @@ FinishExtraction: PROCEDURE EXPOSE globals. settings.
             entries.1 = NLVGetMessage( 111 ) 'RC =' _result                                                 /* 111: "A problem was encountered when trying to extract the archive:" */
             entries.0 = 1
         END
+    END
+
+    _lastline = VRMethod('MLE_VIEWER', 'QueryLineCount')
+    IF _lastline > 0 THEN DO
+        ipt = VRMethod('MLE_VIEWER', 'CharFromLine', _lastline + 1 )
+        CALL VRMethod 'MLE_VIEWER', 'SetSel', ipt, ipt
+        CALL VRMethod 'MLE_VIEWER', 'Insert', '0d0a'x
     END
 
     DO i = 1 TO entries.0
@@ -418,6 +439,20 @@ FinishExtraction: PROCEDURE EXPOSE globals. settings.
             CALL VRMessage VRWindow(), NLVGetMessage( 147 ), NLVGetMessage( 144 ), 'W'                      /* 144: "Problem";  147: "Unable to open folder view." */
     END
 
+    ELSE IF ( openview == 2 ) & ( mask <> '') THEN DO
+        /* Open the (single) extracted file in the WPS default viewer.
+         */
+        destpath = STRIP( destpath, 'T', '\')
+        IF ( POS('*', mask ) > 0 ) | ( POS('?', mask ) > 0 ) THEN NOP
+        ELSE DO
+            viewfile = destpath'\'mask
+            ok = SysOpenObject( viewfile, 'DEFAULT', 'FALSE')
+            tcount = globals.!tempFiles.0 + 1
+            globals.!tempFiles.tcount = viewfile
+            globals.!tempFiles.0 = tcount
+        END
+    END
+
 RETURN
 
 /*:VRX         Halt
@@ -449,6 +484,14 @@ Init:
     settings.!fgclr   = 'Black'
     settings.!font    = '6.System VIO'
     settings.!dlgfont = '9.WarpSans'
+
+    globals.!findText = ''
+    globals.!tempFiles.0 = 0
+
+    globals.!tempDir = VALUE('TMP',,'OS2ENVIRONMENT')
+    IF globals.!tempDir == '' THEN globals.!tempDir = VALUE('TEMP',,'OS2ENVIRONMENT')
+    IF globals.!tempDir == '' THEN globals.!tempDir = DIRECTORY()
+    globals.!tempDir = TRANSLATE( globals.!tempDir )
 
     /*
      * Load the program settings
@@ -602,6 +645,7 @@ MI_EXTRACT_Click:
      * Get the extract destination from the user.
      */
     vwrfont = VRGet('MLE_VIEWER', 'Font')
+    ex_mask = ''
     CALL VRLoadSecondary 'SW_EXTRACT', 'WAIT'
     DROP vwrfont
     IF exdir == '' THEN RETURN
@@ -631,17 +675,75 @@ MI_EXTRACT_Click:
 
 RETURN
 
+/*:VRX         MI_EXTRACTMASK_Click
+*/
+MI_EXTRACTMASK_Click: 
+
+    /* See if any filename is highlighted */
+    selectedtext = VRGet('MLE_VIEWER', 'SelectedText')
+    selectedtext = STRIP( selectedtext )
+    IF selectedtext <> '' THEN
+        PARSE VAR selectedtext ex_mask '0d'x .
+    ELSE
+        ex_mask = '*'
+
+    IF POS(' ', ex_mask ) > 0 THEN 
+        ex_mask = '"' || STRIP( ex_mask, 'T', '"') || '"'
+
+    /*
+     * Get the extract destination from the user.
+     */
+    vwrfont = VRGet('MLE_VIEWER', 'Font')
+    CALL VRLoadSecondary 'SW_EXTRACT', 'WAIT'
+    DROP vwrfont
+    IF exdir == '' THEN RETURN
+
+    /*
+     * Do a couple of sanity checks on this destination.
+     */
+    IF VRFileExists( exdir ) == 1 THEN DO
+        IF VRIsDir( exdir ) == 0 & ( FILESPEC('PATH', exdir ) \= '') THEN DO
+            CALL VRMessage VRWindow(), NLVGetMessage( 140, exdir ), NLVGetMessage( 141 ), 'E'   /* 140: "A file named %1 already exists.";  141: "File Exists" */
+            RETURN
+        END
+        CALL SysFileTree exdir'\*', 'files.', 'O'
+        IF ( files.0 > 0 ) & ( globals.!currentType <> 'LHA') THEN DO
+            btn.1    = NLVGetMessage( 5 )                                                       /* 5: "C~ontinue" */
+            btn.2    = NLVGetMessage( 3 )                                                       /* 3: "~Cancel" */
+            btn.0    = 2
+            exfile   = VRParseFileName( globals.!currentFile, 'NE')
+            warntext = NLVGetMessage( 142, exdir, exfile )                                      /* 142: "This action will overwrite any existing files under %1 which also exist in %2." */
+            ok = VRMessage( VRWindow(), warntext, NLVGetMessage( 143 ), 'W', 'btn.', 1, 2 )     /* 143: "Warning" */
+            DROP btn.
+            IF ok \= 1 THEN RETURN
+        END
+    END
+
+    CALL ExtractFile openwp, exdir, mask
+
+RETURN
+
 /*:VRX         MI_FIND_Click
 */
-MI_FIND_Click:
-
-return
+MI_FIND_Click: 
+    btns.0 = 2
+    btns.1 = NLVGetMessage( 2 )
+    btns.2 = NLVGetMessage( 3 )
+    btn = VRPrompt( VRWindow(), NLVGetMessage( 56 ), 'globals.!findText', NLVGetMessage( 57 ), 'btns.', 1, 2 )
+    IF ( btn == 1 ) THEN DO
+        IF ( globals.!findText <> '') THEN DO
+            CALL VRMethod 'MLE_VIEWER', 'Search', globals.!findText,, 1 
+            CALL VRSet 'MI_FINDAGAIN', 'Enabled', 1
+        END
+        ELSE CALL VRSet 'MI_FINDAGAIN', 'Enabled', 0
+    END
+RETURN
 
 /*:VRX         MI_FINDAGAIN_Click
 */
 MI_FINDAGAIN_Click:
-
-return
+    CALL VRMethod 'MLE_VIEWER', 'Search', globals.!findText
+RETURN
 
 /*:VRX         MI_HELP_CONTENTS_Click
 */
@@ -693,6 +795,30 @@ MI_VIEWERFONT_Click:
 
 RETURN
 
+/*:VRX         MI_VIEWFILE_Click
+*/
+MI_VIEWFILE_Click: PROCEDURE EXPOSE globals. settings.
+
+    /* See if any filename is highlighted */
+    selectedtext = VRGet('MLE_VIEWER', 'SelectedText')
+    selectedtext = STRIP( selectedtext )
+    IF selectedtext <> '' THEN
+        PARSE VAR selectedtext ex_file '0d'x .
+    ELSE
+        ex_file = ''
+
+    IF POS(' ', ex_file ) > 0 THEN 
+        ex_file = '"' || STRIP( ex_file, 'T', '"') || '"'
+
+    btns.0 = 2
+    btns.1 = NLVGetMessage( 2 )
+    btns.2 = NLVGetMessage( 3 )
+    btn = VRPrompt( VRWindow(), NLVGetMessage( 55 ), 'ex_file', NLVGetMessage( 58 ), 'btns.', 1, 2 )
+    IF ( btn == 1 ) & ( ex_file <> '') THEN DO
+        CALL ExtractFile 2, globals.!tempDir, ex_file
+    END
+RETURN
+
 /*:VRX         MI_WRAP_Click
 */
 MI_WRAP_Click:
@@ -734,7 +860,7 @@ NewLocale: PROCEDURE EXPOSE globals. settings.
 
     PARSE VAR localespec _locale '.' _codepage'.' .
     PARSE VAR _locale 1 _loclang 3 '_' _locctry 6 .
-    IF _loclang == '' _locctry == '' THEN RETURN
+    IF _loclang == '' | _locctry == '' THEN RETURN
 
     /* Update the UI text
      */
@@ -874,8 +1000,10 @@ RETURN
 /*:VRX         PB_EXOK_Click
 */
 PB_EXOK_Click:
-    exdir  = VRGet('EF_EXPATH',   'Value')
+    exdir  = STRIP( VRGet('EF_EXPATH',   'Value'))
     openwp = VRGet('CHK_OPENWPS', 'Set')
+    mask   = STRIP( VRGet('EF_FILEMASK', 'Value'))
+    mask   = STRIP( mask, 'B', '"')
     CALL SW_EXTRACT_Close
 RETURN
 
@@ -903,6 +1031,16 @@ RETURN
 Quit:
 
     CALL SavePreferences
+
+    /* Clean up any viewed files from %TMP% */
+    DO i = 1 TO globals.!tempFiles.0
+        filedir = TRANSLATE( VRParseFileName( globals.!tempFiles.i, 'DP'))
+        IF VRFileExists( globals.!tempFiles.i ) THEN 
+            CALL VRDeleteFile globals.!tempFiles.i
+        /* Try to delete the containing directory (but don't worry if it fails) */
+        IF filedir <> globals.!tempDir THEN 
+            CALL VRRmDir filedir
+    END
 
     window = VRWindow()
     CALL VRSet window, 'Shutdown', 1
@@ -968,11 +1106,14 @@ SetNoFile: PROCEDURE EXPOSE globals. settings.
     globals.!currentFlags    = ''
     globals.!currentPassword = ''
 
-    CALL VRSet 'MI_OPEN',    'Enabled', 1
-    CALL VRSet 'MI_EXTRACT', 'Enabled', 0
-    CALL VRSet 'MI_CLOSE',   'Enabled', 0
-    CALL VRSet VRWindow(),   'Caption',    NLVGetMessage( 1 )       /* 1: "Archive Viewer" */
-    CALL VRSet VRWindow(),   'StatusText', NLVGetMessage( 100 )     /* 100: "No file is currently open" */
+    CALL VRSet 'MI_OPEN',        'Enabled', 1
+    CALL VRSet 'MI_EXTRACT',     'Enabled', 0
+    CALL VRSet 'MI_EXTRACTMASK', 'Enabled', 0
+    CALL VRSet 'MI_VIEWFILE',    'Enabled', 0
+    CALL VRSet 'MI_CLOSE',       'Enabled', 0
+
+    CALL VRSet VRWindow(), 'Caption',    NLVGetMessage( 1 )       /* 1: "Archive Viewer" */
+    CALL VRSet VRWindow(), 'StatusText', NLVGetMessage( 100 )     /* 100: "No file is currently open" */
 
 RETURN
 
@@ -1053,12 +1194,16 @@ SetupLanguage: PROCEDURE EXPOSE globals. settings.
     CALL NLVSetText 'MI_EXTRACT',       'Caption', 12
     CALL NLVSetText 'MI_CLOSE',         'Caption', 13
     CALL NLVSetText 'MI_EXIT',          'Caption', 14
+    CALL NLVSetText 'MI_EXTRACTMASK',   'Caption', 15
+    CALL NLVSetText 'MI_VIEWFILE',      'Caption', 16
 
     CALL NLVSetText 'MN_OPTIONS',       'Caption', 20
     CALL NLVSetText 'MN_FONTS',         'Caption', 21
     CALL NLVSetText 'MI_VIEWERFONT',    'Caption', 22
     CALL NLVSetText 'MI_STATUSFONT',    'Caption', 23
     CALL NLVSetText 'MI_WRAP',          'Caption', 25
+    CALL NLVSetText 'MI_FIND',          'Caption', 26
+    CALL NLVSetText 'MI_FINDAGAIN',     'Caption', 27
 
     CALL NLVSetText 'MN_HELP',          'Caption', 30
     CALL NLVSetText 'MI_HELP_INTRO',    'Caption', 31
@@ -1072,6 +1217,10 @@ SetupLanguage: PROCEDURE EXPOSE globals. settings.
      */
     CALL NLVSetText 'MI_OPEN',          'Accelerator', 80
     CALL NLVSetText 'MI_EXTRACT',       'Accelerator', 81
+    CALL NLVSetText 'MI_EXTRACTMASK',   'Accelerator', 82
+    CALL NLVSetText 'MI_VIEWFILE',      'Accelerator', 83
+    CALL NLVSetText 'MI_FIND',          'Accelerator', 84
+    CALL NLVSetText 'MI_FINDAGAIN',     'Accelerator', 85
 
 RETURN 1
 
@@ -1170,8 +1319,8 @@ SW_ABOUT_Init:
 
     CALL NLVSetText 'SW_ABOUT',         'Caption', 70
     CALL NLVSetText 'DT_ABOUT_NAME',    'Caption', 71
-    CALL NLVSetText 'DT_ABOUT_VERSION', 'Caption', 72, '2.1'
-    CALL NLVSetText 'DT_ABOUT_BUILD',   'Caption', 73, '201105121'
+    CALL NLVSetText 'DT_ABOUT_VERSION', 'Caption', 72, '2.2'
+    CALL NLVSetText 'DT_ABOUT_BUILD',   'Caption', 73, '201308011'
     CALL NLVSetText 'DT_ABOUT_COPY',    'Caption', 74
     CALL NLVSetText 'DT_ABOUT_LICENSE', 'Caption', 75
     CALL NLVSetText 'PB_ABOUTOK',       'Caption', 2
@@ -1213,6 +1362,8 @@ SW_EXTRACT_Init:
     CALL NLVSetText 'DT_EXPATH',   'Caption', 51
     CALL NLVSetText 'CHK_EXNAME',  'Caption', 52
     CALL NLVSetText 'CHK_OPENWPS', 'Caption', 53
+    CALL NLVSetText 'DT_FILEMASK', 'Caption', 54
+
     CALL NLVSetText 'PB_EXOK',     'Caption', 2
     CALL NLVSetText 'PB_EXCANCEL', 'Caption', 3
     CALL NLVSetText 'PB_EXHELP',   'Caption', 4
@@ -1233,6 +1384,21 @@ SW_EXTRACT_Init:
     CALL SW_EXTRACT_OpenDir globals.!currentPath
 
     IF vwrfont \= '' THEN CALL VRSet 'LB_EXDIRS', 'Font', vwrfont
+
+    IF ex_mask == '' THEN DO
+        CALL VRSet 'DT_FILEMASK', 'Visible', 0
+        CALL VRSet 'EF_FILEMASK', 'Visible', 0
+        CALL VRSet 'EF_FILEMASK', 'Value',   ''
+        CALL VRSet 'DT_EXPATH',   'Top',     0
+        CALL VRSet 'EF_EXPATH',   'Top',     361
+        CALL VRSet 'LB_EXDIRS',   'Top',     795
+        CALL VRSet 'LB_EXDIRS',   'Height',  3626
+        CALL VRSet 'LB_EXDIRS',   'TabIndex',1
+    END
+    ELSE DO
+        CALL VRSet 'EF_FILEMASK', 'Value',    ex_mask
+        CALL VRSet 'EF_FILEMASK', 'TabIndex', 1
+    END
 
     window = VRInfo( "Object" )
     if( \VRIsChildOf( window, "Notebook" ) ) then do

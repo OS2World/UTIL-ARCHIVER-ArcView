@@ -490,6 +490,7 @@ informative messages.
 :p.:ul compact.
 :li.:link reftype=hd res=011.Opening an archive:elink.
 :li.:link reftype=hd res=012.Extracting an archive:elink.
+:li.:link reftype=hd res=015.Viewing a file within an archive:elink.
 :eul.
 :p.
 
@@ -526,13 +527,22 @@ displayed in the viewing area.
 :p.Once you have opened an archive and have its contents listed in the main
 display area, you may extract those contents to a location of your choice.
 
-:p.To extract the current archive, either choose :hp2.File:ehp2.->:hp2.Extract:ehp2.
-from the menu bar, or press &osq.Ctrl+E&csq..
+:p.To extract all files in the current archive, either choose
+:hp2.File:ehp2.-&gt.:hp2.Extract:ehp2. from the menu bar, or press
+&osq.Ctrl+E&csq..  This will cause the :link reftype=hd refid=extract_dlg.Extract
+dialog:elink. to appear.
 
-:p.This will cause the :link reftype=hd refid=extract_dlg.Extract dialog:elink.
-to appear.
+:p.Alternatively, you can extract a single file or sub-set of files from within
+the archive by choosing :hp2.File:ehp2.-&gt.:hp2.Extract name:ehp2. from the menu
+bar, or by pressing &osq.Ctrl+N&csq..  In this case, the Extract dialog which
+appears will include an additional field in which you can enter a filename, or a
+filemask containing wildcard characters.  (If any text in the viewing area is
+currently highlighted, it will automatically be placed into this field, up to
+the first line break, when the dialog appears.)  Note that if the filename
+contains spaces or special shell characters (such as ;, &lt., &gt., |, or &amp.),
+it should be enclosed in double-quotes ("").
 
-:p.If the archive is password-protected, you will be
+:p.In either case, if the archive is password-protected you will be
 :link reftype=hd refid=password_dlg.prompted:elink. for the appropriate
 password.
 
@@ -584,6 +594,27 @@ the archive contents.
 :p.The password will not display when typed.
 
 
+.* ............................................................................
+:h2 res=015 name=view_file
+    x=left y=bottom width=100% height=100%.Viewing a file inside an archive
+:p.It is possible to open a file contained within an archive for viewing
+without extracting the archive as a whole, using the :hp2.File:ehp2.-&gt.:hp2.View
+file:ehp2. menu command (or by pressing &osq.Ctrl+V&csq.).  A dialog will
+appear prompting you to enter the name of a file to view.
+:p.If the filename contains spaces or special shell characters (such as
+;, &lt., &gt., |, or &amp.), you should enclose the filename in double-quotes
+("").  You should not include wildcard characters (*, ?) in the filename.
+:p.If any text in the viewing area is highlighted at the time you select this
+option, it is automatically entered into the prompt dialog (up to the first
+line break), and you can confirm or alter it as needed before proceeding.  You
+can therefore quickly view a particular file by highlighting its name in the
+viewing area (for example, by double-clicking on the filename text with the
+mouse), then pressing &osq.Ctrl+V&csq. and selecting &osq.OK&csq..
+:p.The file will be extracted into your system temporary-files directory, and
+then opened with the default desktop viewer for that file type (for unknown
+file types, the default viewer is normally the system text editor).
+
+
 .* ----------------------------------------------------------------------------
 :h1 res=020 name=custom
     x=left y=bottom width=100% height=100%.Customizing the Archive Viewer
@@ -627,7 +658,7 @@ automatically if it does not exist.
 .* ----------------------------------------------------------------------------
 :h1 res=090 name=bugs
     x=left y=bottom width=100% height=100%.Limitations
-:p.The Archive Viewer has the following known limitations&colon.
+:p.The Archive Viewer has the following limitations&colon.
 :ul.
 :li.Files with the same name that already exist in the destination path are
 overwritten.  A warning dialog will pop up whenever you choose to extract an
@@ -640,19 +671,12 @@ Archive Viewer might no longer work properly.  This also means that the Archive
 Viewer must be explicitly modified in order to add support for new archive
 types.
 
-:li.Individual files or groups of files within archives may not be selected or
-extracted.  The Archive Viewer only supports the extraction of entire archives.
-
 :li.Some versions of BZIP2.EXE are incompatible with the Archive Viewer because
 they do not properly support pipes.  Specifically, versions which are statically
 linked with the EMX libraries appear to exhibit this problem.  Versions which are
 dynamically linked against EMX should be fine, as are those compiled with the IBM
 compiler(s).  However, this should not be a problem with recent versions of
 BZIP2.EXE.
-
-:li.Intelligent identification of executable (EXE) archives has not been
-implemented.  At present, all EXE files opened by the Archive Viewer are assumed
-to be self-extracting ZIP files.
 
 :li.When extracting password-protected ARJ archives, if you enter an incorrect
 password, there will be a long delay during which nothing appears to happen.  This

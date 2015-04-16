@@ -1,13 +1,24 @@
 :userdoc.
 .* ----------------------------------------------------------------------------
+
+.***************************************************
+.* Archive Viewer Help - French version
+.* Translator : Guillaume Gay <guillaume.gay@bigfoot.com>
+.* Translation : 2012-04-08
+.***************************************************
 :h1 res=001 name=intro x=left y=bottom width=100% height=100%.· propos de Archive Viewer
 :p.Archive Viewer est un outil simple pour afficher et extraire des 
 :link reftype=fn refid=fn_archive.fichiers d'archive:elink. de diff‚rents
 types communs (voir le tableau ci-dessous). 
-:p.Il n'est pas con‡u pour cr‚er des archives. Il y a plusieurs autres
-gestionnaires d'archives commerciaux … votre disposition pour effectuer
-cette tƒche, et Archive Viewer n'a pas pour vocation d'entrer en
-concurrence avec ceux-ci. 
+:nt.Archive Viewer est d‚lib‚r‚ment peu sophistiqu‚ dans ses
+fonctionnalit‚s et son interface utilisateur. En particulier, il
+ne prend pas en charge l'extraction s‚lective, le filtrage ni la
+recherche &semi. il n'a pas non plus ‚t‚ con‡u pour cr‚er ou
+modifier des archives.  Il y a plusieurs autres gestionnaires
+d'archives commerciaux qui proposent ces services, et Archive Viewer
+n'a pas pour vocation d'entrer en concurrence avec ceux-ci (d'autant
+moins au vu de sa position avantageuse, ‚tant inclus dans le systŠme
+d'exploitation eComStation). :ent.
 :p.Types d'archives pris en charge &colon.
 :table cols='30 20 20'.
 :row.
@@ -15,21 +26,33 @@ concurrence avec ceux-ci.
 :c.EXTENSION(S) DE FICHIERS
 :c.ARCHIVEUR(S) REQUIS
 :row.
-:c.Archives ZIP
-:c.*.ZIP, *.EXE, *.JAR
-:c.UNZIP.EXE
-:row.
-:c.Archives RAR
-:c.*.RAR
-:c.UNRAR.EXE, RAR32.EXE ou RAR.EXE
+:c.Archives 7Z
+:c.*.7Z
+:c.7Z.EXE, 7ZA.EXE ou 7ZR.EXE
 :row.
 :c.Archives ARJ
 :c.*.ARJ
 :c.ARJ.EXE
 :row.
+:c.Archives LHArc
+:c.*.LZH, *.LHA
+:c.LHA.EXE
+:row.
+:c.Archives RAR
+:c.*.RAR
+:c.UNRAR.EXE, RAR32.EXE ou RAR.EXE
+:row.
+:c.Paquetages RPM
+:c.*.RPM
+:c.CPIO.EXE et soit 7Z.EXE, soit RPM2CPIO.EXE
+:row.
 :c.Archives de bande Unix
 :c.*.TAR
 :c.TAR.EXE
+:row.
+:c.Archives de bande Unix compress‚e en utilisant BZIP2
+:c.*.TAR.BZ2, *.TBZ
+:c.TAR.EXE et BZIP2.EXE
 :row.
 :c.Archives de bande Unix compress‚e en utilisant COMPRESS
 :c.*.TAR.Z, *.TZ
@@ -37,12 +60,23 @@ concurrence avec ceux-ci.
 :row.
 :c.Archives de bande Unix compress‚e en utilisant GZIP
 :c.*.TAR.GZ, *.TGZ
-:c.TAR.EXE and GZIP.EXE
+:c.TAR.EXE et GZIP.EXE
 :row.
-:c.Archives de bande Unix compress‚e en utilisant BZIP2
-:c.*.TAR.BZ2, *.TBZ
-:c.TAR.EXE et BZIP2.EXE
+:c.Archives de bande Unix compress‚e en utilisant LZIP
+:c.*.TAR.LZ
+:c.TAR.EXE et soit LZIP.EXE, soit PDLZIP.EXE
+:row.
+:c.Archives WarpIN
+:c.*.WPI
+:c.WIC.EXE (fait partie de WarpIN)
+:row.
+:c.Archives ZIP
+:c.*.ZIP, *.EXE, *.JAR
+:c.UNZIP.EXE
 :etable.
+:p.En outre, les fichiers simples (pas des archives) qui ont ‚t‚
+compress‚s utilisant COMPRESS, GZIP, BZIP2 ou LZIP peuvent aussi
+ˆtre d‚compress‚s en utilisant Archive Viewer. 
 :nt text='Remarque importante &colon.'.pour que Archive Viewer soit
 capable de prendre en charge l'un des types d'archives ci-dessus,
 l'archiveur correspondant doit ˆtre install‚ sur votre systŠme et doit
@@ -443,7 +477,7 @@ barre d'‚tat.
 :hp2.Options:ehp2. et :hp2.Aide:ehp2.&per. 
 :p.La zone d'affichage repr‚sente la partie principale de l'interface. 
 C'est … cet endroit qu'est list‚ le contenu d'un fichier d'archive, ainsi
-que les messages diff‚rents d'informations. 
+que les divers messages d'informations. 
 :p.La barre d'‚tat affiche les messages d'‚tat d‚pendants du contexte. 
 :p.:ul.
 :li.:link reftype=hd res=011.Ouvrir une archive:elink.
@@ -452,7 +486,7 @@ que les messages diff‚rents d'informations.
 :p.
 .* ............................................................................
 :h2 res=011 name=view x=left y=bottom width=100% height=100%.Ouvrir une archive
-:p.Il y a deux maniŠres d'ouvrir une archive &colon. 
+:p.Il y a trois maniŠres d'ouvrir une archive &colon. 
 :ol.
 :li.en passant le fichier d'archive comme paramŠtre … Archive Viewer au
 lancement (par exemple en d‚posant l'objet fichier sur l'ic“ne de Archive
@@ -461,6 +495,8 @@ Viewer sur votre bureau),
 :hp2.Fichier:ehp2.&per. Il est aussi possible d'acc‚der … ce menu en
 effectuant la combinaison de touche
 &osq.:hp2.Ctrl:ehp2.+:hp2.O:ehp2.&csq.&per. 
+:li.En glissant et d‚posant un fichier d'archive du bureau ‚lectronique
+dans la fenˆtre principale de Archive Viewer. 
 :eol.
 :p.Lorsque vous ouvrez un fichier d'archive, Archive Viewer tente de lire
 son contenu. S'il n'y a aucune erreur, le contenu de l'archive apparaŒt
@@ -524,12 +560,13 @@ comportant le mˆme nom par celui contenu dans l'archive.:ent.
 :p.Cette boŒte de dialogue apparaŒt si (et seulement si) l'archive est
 prot‚g‚e par un mot de passe. Il vous est alors demand‚ d'entrer le
 mot de passe appropri‚ pour afficher ou extraire le contenu de l'archive. 
-:p.Les archives au format ZIP, ARJ et RAR sont susceptibles d'ˆtre
+:p.Les archives au format ZIP, 7Z, ARJ et RAR sont susceptibles d'ˆtre
 prot‚g‚es par mot de passe. Dans la plupart des cas, vous pouvez
 librement afficher le contenu d'une archive prot‚g‚e par mot de passe, 
 mais vous ne pouvez pas l'extraire sans entrer le mot de passe correct. 
-Certaines archives RAR peuvent cependant ˆtre chiffr‚es de telle maniŠre
-que le mot de passe est requis mˆme pour afficher le contenu de l'archive. 
+Certaines archives 7Z et RAR peuvent cependant ˆtre chiffr‚es de telle
+maniŠre que le mot de passe est requis mˆme pour afficher le contenu de
+l'archive. 
 :p.Le mot de passe n'est pas affich‚ au cours de la frappe. 
 :p. 
 .* ----------------------------------------------------------------------------
@@ -537,6 +574,7 @@ que le mot de passe est requis mˆme pour afficher le contenu de l'archive.
 :p.L'utilisateur peut personnaliser les aspects de Archive Viewer
 suivants &colon. 
 :ul.
+:li.la langue utilis‚e pour l'interface utilisateur et l'aide en ligne,
 :li.la police utilis‚e dans la zone d'affichage,
 :li.la police utilis‚e dans la barre d'‚tat,
 :li.les couleurs d'arriŠre-plan et de texte utilis‚es dans la zone
@@ -557,6 +595,11 @@ d'arriŠre-plan&semi. glisser/d‚poser en maintenant la touche
 :p.Les taille et position de la fenˆtre de Archive Viewer peuvent ˆtre
 modifi‚es comme pour n'importe quelle fenˆtre &colon. en redimensionnant
 le cadre de la fenˆtre ou en d‚pla‡ant la fenˆtre par sa barre de titre. 
+:p.Pour modifier la langue du programme, glissez et d‚posez un objet
+depuis la palette d'options r‚gionales et linguistiques. Si la langue
+d‚finie par l'objet d‚pos‚ est prise en charge par le programme, la
+modification sera automatique. Dans le cas contraire, Archive Viewer
+passera en anglais (option r‚gionale :hp2.en_US:ehp2.). 
 :p.Les personnalisations sont automatiquement sauvegard‚es dans le fichier
 de configuration :hp2.ARCVIEW.INI:ehp2. lorsque vous quittez le programme. 
 Ce fichier est situ‚ dans le mˆme r‚pertoire que celui dans lequel se
@@ -568,37 +611,35 @@ s'il n'existe pas d‚j….
 :p.Archive Viewer pr‚sente les limitation connues suivantes &colon. 
 :ul.
 :li.Les fichiers existants dans le chemin de destination portant les mˆmes
-noms que ceux de l'archive sont ‚cras‚s. 
-:p.
-:li.Archive Viewer ne prend en charge :hp1.que:ehp1. COMPRESS, GZIP et
-BZIP2 quand ils ont ‚t‚ utilis‚s pour compresser les archives TAR. Les
-fichiers individuels non-archiv‚s compress‚s avec l'un de ces programmes
-ne sont quant … eux pas pris en charge. 
-.br
-(La raison de cette limitation est qu'aucun de ces programmes ne
-supporte une table des matiŠres&semi. ce ne sont aprŠs tout que de
-simples programmes de compression de fichiers individuels, pas des
-archiveurs.)
+noms que ceux de l'archive sont ‚cras‚s. Une boŒte de dialogue
+d'avertissement s'affichera dŠs qiue vous voudrez extraire une archive
+dans un r‚pertoire existant. 
 :li.Les programmes utilis‚s pour prendre en charge les archives
 (UNZIP.EXE, ARJ.EXE, etc.) et leurs paramŠtres sont cod‚s en dur dans
 Archive Viewer. 
-:p.Cela signifie que si la syntaxe de commande venait … changer,
-Archive Viewer pourrait ne plus fonctionner correctement. Cela signifie
-aussi que si l'un de ces programmes n'‚tait pas pr‚sent sur votre systŠme,
-il n'y a alors aucun moyen pour vous de "d‚sactiver" la prise en charge du
-type d'archive correspondant. Vous ne pouvez pas non plus faire prendre en
-charge de nouveaux types d'archives. 
-:p.
+:p.Cela signifie que si la syntaxe de commande venait … changer dans une
+nouvelle version de l'un de ces programme, Archive Viewer pourrait ne
+plus fonctionner correctement. Cela signifie aussi que Archive Viewer
+doit ˆtre explicitement modifi‚ pour la prise en charge d'un nouveau
+type d'archive. 
 :li.Il n'est pas possible de s‚lectionner pour l'extraction des groupes de
 fichiers ou des fichiers individuels dans les archives. Archive Viewer ne
 prend en charge que l'extraction d'archives entiŠres. 
-:p.
 :li.Certaines versions de BZIP2.EXE sont incompatibles avec Archive Viewer
 parcequ'elles ne prennent pas en charge correctement les tubes ("pipes"). 
 Ce sont en particulier les versions li‚es ("link‚es") statiquement avec
 les bibliothŠques EMX qui semblent pr‚senter ce problŠme. Les versions
 li‚es dynamiquement … EMX devraient fonctionner, de mˆme que celles
-compil‚es … l'aide du (des) compilateur(s) IBM. 
+compil‚es … l'aide du (des) compilateur(s) IBM. Cependant, il ne devrait
+pas y avoir de problŠme avec les versions r‚centes de BZIP2.EXE. 
+:li.L'indentification intelligente des archives ex‚cutables (EXE) n'a pas
+‚t‚ impl‚ment‚e. Pour l'instant, tous les fichiers EXE ouvert dans
+Archive Viewer sont consid‚r‚s comme des fichiers ZIP autoextractibles. 
+:li.· l'extraction d'archives ARJ prot‚g‚es par mot de passe, si vous
+entrez un mot de passe incorrect, il y aura un temps de latence certain
+pendant lequel rien ne semble se produire. Cela est d– au fait qu'ARJ.EXE
+tente de d‚chiffrer chaque fichier de l'archive … l'aide du mot de passe
+erron‚ avant de retourner une erreur. 
 :eul.
 :p.
 .* ----------------------------------------------------------------------------

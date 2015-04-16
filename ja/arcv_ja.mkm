@@ -19,10 +19,10 @@ ARV0009?:
 ;    messages, see below.)
 ARV0010I: フャイル(~F)
 ARV0011I: オーペン(~O)...	Ctrl+O
-ARV0012I: 引抜く(~E)...	Ctrl+E
+ARV0012I: 展開(~E)...	Ctrl+E
 ARV0013I: クローズ(~C)
 ARV0014I: 終了(~X)	F3
-ARV0015?:
+ARV0015I: 名前を展開(~N)...	Ctrl+N
 ARV0016?:
 ARV0017?:
 ARV0018?:
@@ -58,27 +58,27 @@ ARV0047?:
 ARV0048?:
 ARV0049?:
 ; Secondary dialogs
-ARV0050I: Extract To...
-ARV0051I: Choose a path to extract to:
-ARV0052I: Append archive name to selected path
-ARV0053I: Open folder after extraction
-ARV0054?:
+ARV0050I: 展開先...
+ARV0051I: 展開先のパスを入力してください:
+ARV0052I: アーカイブ名を選択されたパスに追加する
+ARV0053I: 展開後フォルダーを開く
+ARV0054I: 展開される名前／マスク:
 ARV0055?:
 ARV0056?:
 ARV0057?:
 ARV0058?:
 ARV0059?:
-ARV0060I: Password Required
+ARV0060I: パスワードが必要
 ARV0061I: A password is required to extract the contents of this archive.
 ARV0062I: A password is required to view the contents of this archive.
-ARV0063I: Enter password:
-ARV0064I: An incorrect password was specified.  Please try again.
+ARV0063I: パスワードの入力:
+ARV0064I: 入力されたパスワードが正しくありません。もう一度やり直してください。
 ARV0065?:
 ARV0066?:
 ARV0067I: フォントを択ぶ
 ARV0068?:
 ARV0069?:
-ARV0070I: Product Information
+ARV0070I: 製品情報
 ARV0071I: アーカイブ・ビューワー
 ARV0072I: ﾊﾞｰｼﾞｮﾝ %1
 ARV0073I: (ﾋﾞﾙﾄﾞ %1)

@@ -177,14 +177,15 @@ DetermineArchiveType: PROCEDURE
      */
     SELECT
         WHEN RIGHT( filename, 4 ) == '.ZIP'    THEN type = 'ZIP'
+        WHEN RIGHT( filename, 3 ) == '.7Z'     THEN type = '7Z'
+        WHEN RIGHT( filename, 4 ) == '.WPI'    THEN type = 'WPI'
+        WHEN RIGHT( filename, 4 ) == '.RPM'    THEN type = 'RPM'
+        WHEN RIGHT( filename, 4 ) == '.EXE'    THEN type = ExeGetType( filename )
         WHEN RIGHT( filename, 4 ) == '.RAR'    THEN type = 'RAR'
         WHEN RIGHT( filename, 4 ) == '.ARJ'    THEN type = 'ARJ'
         WHEN RIGHT( filename, 4 ) == '.JAR'    THEN type = 'ZIP'
         WHEN RIGHT( filename, 4 ) == '.LHA'    THEN type = 'LHA'
         WHEN RIGHT( filename, 4 ) == '.LZH'    THEN type = 'LHA'
-        WHEN RIGHT( filename, 3 ) == '.7Z'     THEN type = '7Z'
-        WHEN RIGHT( filename, 4 ) == '.WPI'    THEN type = 'WPI'
-        WHEN RIGHT( filename, 4 ) == '.RPM'    THEN type = 'RPM'
         WHEN RIGHT( filename, 4 ) == '.TAR'    THEN type = 'TAR'
         WHEN RIGHT( filename, 4 ) == '.TGZ'    THEN type = 'TGZ'
         WHEN RIGHT( filename, 5 ) == '.TBZ2'   THEN type = 'TBZ'
@@ -195,7 +196,6 @@ DetermineArchiveType: PROCEDURE
         WHEN RIGHT( filename, 6 ) == 'TAR.LZ'  THEN type = 'TLZ'
         WHEN RIGHT( filename, 5 ) == 'TAR.Z'   THEN type = 'TZ'
         WHEN RIGHT( filename, 3 ) == '.PF'     THEN type = 'PF'    /* Not supported */
-        WHEN RIGHT( filename, 4 ) == '.EXE'    THEN type = ExeGetType( filename )
         /* Non-tar compressed files - none of these are actually supported yet.
          * Note that these lines must come AFTER the TAR.* lines (above).
          */
@@ -203,7 +203,7 @@ DetermineArchiveType: PROCEDURE
         WHEN RIGHT( filename, 4 ) == '.BZ2'    THEN type = 'BZ'    /* Not supported */
         WHEN RIGHT( filename, 3 ) == '.LZ'     THEN type = 'LZ'    /* Not supported */
         WHEN RIGHT( filename, 2 ) == '.Z'      THEN type = 'Z'     /* Not supported */
-        OTHERWISE                                   type = ''
+        OTHERWISE                                   type = ReadType( filename )
     END
 
 RETURN type
@@ -212,13 +212,7 @@ RETURN type
 */
 ExeGetType: PROCEDURE
     PARSE ARG filename
-
-    /* TODO:
-     * Check the EXE file header to see if it's a self-extracting ZIP, WPI, etc.
-     */
-
-    type = 'ZIP'
-
+    type = ReadType( filename )
 RETURN type
 
 /*:VRX         GetFlags
